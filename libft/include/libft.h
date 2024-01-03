@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:16:44 by alexphil          #+#    #+#             */
-/*   Updated: 2024/01/03 11:47:27 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/03 12:25:12 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@
 # include <stdlib.h> // malloc, free, exit
 # include <stdarg.h> // va_start, va_arg, va_end, va_list
 # include <fcntl.h> // open
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+// GNL functions
+size_t	gnl_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*gnl_join(char *s1, char *s2);
+int		gnl_strchr(const char *s, int c);
+char	*get_next_line(int fd);
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

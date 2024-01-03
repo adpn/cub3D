@@ -6,13 +6,21 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/03 11:53:39 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/03 12:22:58 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
+	char	*str;
+
+	while (1)
+	{
+		str = get_next_line(0);
+		printf("%s", str);
+		free(str);
+	}
 	return (0);
 }

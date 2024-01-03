@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/24 13:42:57 by alexphil          #+#    #+#              #
-#    Updated: 2024/01/03 11:36:08 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/03 12:19:23 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ BUILD_DIR 	= 	build
 LST_DIR 	= 	lists
 STR_DIR 	= 	strings
 MEM_DIR 	= 	memory
+GNL_DIR 	= 	gnl
 
 # Define the source files from each directory
 LST_SRC 	= 	ft_lstadd_back.c \
@@ -71,17 +72,21 @@ MEM_SRC 	= 	ft_bzero.c \
 		  	  	ft_memmove.c \
 		  	  	ft_memset.c
 
-PRINTF_SRC = 	ft_printf.c utils.c
+GNL_SRC		= 	gnl.c \
+				gnl_utils.c
 
 # Define the path of the sources files from each directory
 SRC 		= 	$(addprefix $(LST_DIR)/, $(LST_SRC)) \
 	   		  	$(addprefix $(STR_DIR)/, $(STR_SRC)) \
-	   		  	$(addprefix $(MEM_DIR)/, $(MEM_SRC))
+	   		  	$(addprefix $(MEM_DIR)/, $(MEM_SRC)) \
+				$(addprefix $(GNL_DIR)/, $(GNL_SRC))	
+				
 
 # Derive object file names from source file names and define the path
 OBJS 		= 	$(addprefix $(BUILD_DIR)/, $(LST_SRC:.c=.o)) \
 	  		  	$(addprefix $(BUILD_DIR)/, $(STR_SRC:.c=.o)) \
-	  		  	$(addprefix $(BUILD_DIR)/, $(MEM_SRC:.c=.o))
+	  		  	$(addprefix $(BUILD_DIR)/, $(MEM_SRC:.c=.o)) \
+				$(addprefix $(BUILD_DIR)/, $(GNL_SRC:.c=.o))
 
 #-------------------COLORS-----------------------
 
@@ -107,6 +112,10 @@ $(BUILD_DIR)/%.o: $(STR_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(MEM_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	
+$(BUILD_DIR)/%.o: $(GNL_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
