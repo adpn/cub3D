@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split_charset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/11 11:21:28 by alexphil          #+#    #+#             */
-/*   Updated: 2024/01/04 16:47:51 by adupin           ###   ########.fr       */
+/*   Created: 2024/01/04 16:30:46 by adupin            #+#    #+#             */
+/*   Updated: 2024/01/04 16:52:01 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
 // Return the number of words in a string.
-static size_t	nb_word(char const *s, char c)
+static size_t	nb_word(char const *s, char *charset)
 {
 	size_t	i;
 	size_t	nb;
@@ -22,10 +22,10 @@ static size_t	nb_word(char const *s, char c)
 	nb = 0;
 	while (s && s[i])
 	{
-		if (s[i] != c)
+		if (!ft_strchr(charset, s[i]))
 		{
 			nb++;
-			while (s[i] != c && s[i])
+			while (s[i] && !ft_strchr(charset, s[i]))
 				i++;
 		}
 		else
@@ -35,12 +35,12 @@ static size_t	nb_word(char const *s, char c)
 }
 
 // Return the length of a word.
-static size_t	ln_word(char const *s, char c, size_t i)
+static size_t	ln_word(char const *s, char *charset, size_t i)
 {
 	size_t	len;
 
 	len = 0;
-	while (s[i] && s[i] != c)
+	while (s[i] && !ft_strchr(charset, s[i]))
 	{
 		i++;
 		len++;
@@ -58,7 +58,7 @@ static void	*ft_free(char **strs, size_t j)
 }
 
 // Split a string into an array of strings.
-char	**ft_split(char const *s, char c)
+char	**ft_split_charset(char const *s, char *charset)
 {
 	ssize_t	size;
 	char	**strs;
@@ -66,7 +66,7 @@ char	**ft_split(char const *s, char c)
 	ssize_t	j;
 	size_t	len;
 
-	size = nb_word(s, c);
+	size = nb_word(s, charset);
 	strs = malloc((size + 1) * sizeof(char *));
 	if (!strs)
 		return (NULL);
@@ -74,9 +74,9 @@ char	**ft_split(char const *s, char c)
 	j = -1;
 	while (++j < size)
 	{
-		while (s[i] == c)
+		while (ft_strchr(charset, s[i]))
 			i++;
-		len = ln_word(s, c, i);
+		len = ln_word(s, charset, i);
 		strs[j] = ft_substr(s, i, len);
 		if (!strs[j])
 			if (!ft_free(strs, j))
