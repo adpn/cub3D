@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/04 18:36:11 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/05 16:59:43 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ MAIN_FILE		=	main.c
 PARSER_FILES	=	cat_all_in_one.c \
 					colors.c \
 					parser.c \
-					split_charset.c
+					split_charset.c \
+					conf.c \
+					map.c
 DISPLAY_FILES	=	
 UTILS_FILES		=	utils.c
 
