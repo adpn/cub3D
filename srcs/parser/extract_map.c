@@ -6,11 +6,27 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:38:34 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/05 17:06:12 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/05 17:25:49 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+void	clear_map(t_data *data)
+{
+	int	i;
+
+	if (!data->map)
+		return ;
+	i = 0;
+	while (data->map[i])
+	{
+		free(data->map[i]);
+		i++;
+	}
+	free(data->map);
+	data->map = NULL;
+}
 
 char	*skip_empty_line(int fd)
 {
@@ -86,8 +102,8 @@ int	get_map(t_data *data, int fd)
 		return (free(line), ft_error("Malloc failed"));
 	data->map[0] = NULL;
 	if (add_line_to_map(data, line))
-		return (ft_free_split(data->map), 1);
+		return (clear_map(data), 1);
 	if (fill_map(data, fd))
-		return (ft_free_split(data->map), 1);
+		return (clear_map(data), 1);
 	return (0);
 }

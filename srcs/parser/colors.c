@@ -6,12 +6,13 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:52 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/04 18:30:24 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 12:24:14 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+// Return 1 if str contains only char from charset, 0 otherwise
 int	only_char(char *str, char *charset)
 {
 	int	i;

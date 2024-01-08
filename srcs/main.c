@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/05 17:01:03 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/05 17:27:25 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int	main(int argc, char **argv)
 		return (ft_error("Can't open file"));
 	data.path = &path;
 	if (parser(&data, data.fd))
-		return (printf_parser(&data), free_path(&data), 1);
+		return (free_path(&data), 1);
 	printf_parser(&data);
 	free_path(&data);
+	clear_map(&data);
 	printf("All good\n");
 	return (0);
 }
