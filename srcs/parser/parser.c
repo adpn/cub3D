@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:50:00 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 12:38:21 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:05:44 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_value(t_data *data)
 	data->floor_color[2] = -1;
 	data->map = NULL;
 }
- 
+
 int	parser(t_data *data, int fd)
 {
 	init_value(data);

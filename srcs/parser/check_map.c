@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 16:19:34 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:56:30 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	check_player_position(char **map)
 				|| map[i][j] == 'W' || map[i][j] == 'E')
 				nb_player++;
 			j++;
-		if (nb_player > 1)
-			return (ft_error("Too many players in the map"));
+			if (nb_player > 1)
+				return (ft_error("Too many players in the map"));
 		}
 		i++;
 	}
@@ -71,7 +71,7 @@ int	check_map_closed(char **map)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (map[i])
 	{
@@ -83,7 +83,7 @@ int	check_map_closed(char **map)
 				|| (!map[i + 1][j] || !ft_strchr("NSEW01", map[i + 1][j]))
 				|| (j == 0 || !ft_strchr("NSEW01", map[i][j - 1]))
 				|| (!map[i][j + 1] || !ft_strchr("NSEW01", map[i][j + 1]))))
-					return (ft_error("Map is not closed"));
+				return (ft_error("Map is not closed"));
 			j++;
 		}
 		i++;

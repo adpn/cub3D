@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:52 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 12:24:14 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:55:42 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	only_char(char *str, char *charset)
 			return (0);
 		i++;
 	}
-	return (1);	
+	return (1);
 }
 
 static int	assign_numbers(int *color, char **tab)
@@ -49,13 +49,16 @@ int	assign_color(int *color, char **tab)
 	clean_line = cat_all_in_one(tab);
 	if (!clean_line)
 		return (ft_error("Malloc failed"));
-	if (!only_char(&clean_line[1], ",0123456789") || ft_count(&clean_line[1], ',') != 2)
-		return (free(clean_line), ft_error("Forbidden character in RGB value"), 1);
+	if (!only_char(&clean_line[1], ",0123456789")
+		|| ft_count(&clean_line[1], ',') != 2)
+		return (free(clean_line),
+			ft_error("Forbidden character in RGB value"), 1);
 	comma_split = ft_split(&clean_line[1], ',');
 	if (!comma_split)
 		return (free(clean_line), ft_error("Malloc failed"));
 	if (assign_numbers(color, comma_split))
-		return (free(clean_line), ft_free_split(comma_split), ft_error("Wrong RGB value"));
+		return (free(clean_line),
+			ft_free_split(comma_split), ft_error("Wrong RGB value"));
 	free(clean_line);
 	ft_free_split(comma_split);
 	return (0);

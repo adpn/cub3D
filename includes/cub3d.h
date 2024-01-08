@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/05 17:24:07 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:52:44 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ enum e_keys{
 	KEY_ESC = 53
 };
 
-int	ft_error(char *str);
-int	parser(t_data *data, int fd);
+int		ft_error(char *str);
+int		parser(t_data *data, int fd);
 void	printf_parser(t_data *data);
 void	clear_map(t_data *data);
 #endif

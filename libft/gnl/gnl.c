@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:20:30 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/03 12:24:47 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:53:41 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*free_all(char *buffer)
 
 	i = 0;
 	while (buffer[i])
-	{			
+	{
 		buffer[i] = '\0';
 		i++;
 	}

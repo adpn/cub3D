@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/04 13:04:48 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:53:16 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_path
 	char	*east;
 }				t_path;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int		fd;	
 	void	*mlx_ptr;

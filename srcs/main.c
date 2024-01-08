@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/05 17:27:25 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 16:54:20 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ int	ft_error(char *str)
 void	printf_parser(t_data *data)
 {
 	int	i;
+
 	printf("North: %s\n", data->path->north);
 	printf("South: %s\n", data->path->south);
 	printf("East: %s\n", data->path->east);
 	printf("West: %s\n", data->path->west);
-	printf("Ceiling: %d %d %d\n", data->ceiling_color[0], data->ceiling_color[1], data->ceiling_color[2]);
-	printf("Floor: %d %d %d\n", data->floor_color[0], data->floor_color[1], data->floor_color[2]);
+	printf("Ceiling: %d %d %d\n", data->ceiling_color[0],
+		data->ceiling_color[1], data->ceiling_color[2]);
+	printf("Floor: %d %d %d\n", data->floor_color[0],
+		data->floor_color[1], data->floor_color[2]);
 	printf("Map:\n");
 	i = 0;
 	while (data->map[i])

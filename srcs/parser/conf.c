@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:39:50 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/05 13:46:13 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:05:04 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	assign_wall(char **wall, char **tab)
 {
 	int	i;
-	
+
 	i = 0;
 	if (*wall)
 		return (ft_error("Texture path already assigned"));
@@ -33,7 +33,7 @@ static int	assign_wall(char **wall, char **tab)
 static int	which_value(t_data *data, char **tab)
 {
 	int	len;
-	
+
 	len = ft_strlen(tab[0]);
 	if (!ft_strncmp("NO", tab[0], len))
 		return (assign_wall(&data->path->north, tab));
@@ -67,7 +67,7 @@ static int	assign_conf(t_data *data, char *line)
 int	get_configuration(t_data *data, int fd)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -80,10 +80,10 @@ int	get_configuration(t_data *data, int fd)
 			if (assign_conf(data, line))
 				return (free(line), 1);
 		}
-		free(line);	
+		free(line);
 		if (data->path->north && data->path->south && data->path->east
 			&& data->path->west && data->ceiling_color[0] != -1
-				&& data->floor_color[0] != -1)
+			&& data->floor_color[0] != -1)
 			return (0);
 	}
 	return (0);
