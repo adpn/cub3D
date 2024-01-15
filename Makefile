@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/08 15:40:03 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/15 10:37:56 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ PARSER_FILES	=	cat_all_in_one.c \
 					conf.c \
 					extract_map.c \
 					check_map.c
-DISPLAY_FILES	=	
+DISPLAY_FILES	=	setup.c
 UTILS_FILES		=	utils.c
 
 # Defining the paths of the sources files 
@@ -79,7 +79,7 @@ $(BUILD_DIR)/%.o: $(UTILS_DIR)/%.c
 # Rule to build the executable from the objects and the libft library
 $(NAME): $(OBJS) $(LIBFT_DIR)/libft.a
 	@echo "$(YELLOW)Linking $(NAME)... $(NO_COLOR)"
-	@$(CC) $(CFLAGS) -o $@ $^
+	@$(CC) $(CFLAGS) $(MLXFLAGS) -o $@ $^
 	@echo "$(GREEN)$(BOLD)Enjoy!$(BOLD_OFF)$(NO_COLOR)"
 
 # Rule to build the libft library

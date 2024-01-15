@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 16:52:44 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/15 10:39:34 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h> // strerror
 # include <errno.h> // perror
 # include <math.h>
+# include <mlx.h>
 # include "struct.h"
 
 enum e_keys{
@@ -37,4 +38,5 @@ int		ft_error(char *str);
 int		parser(t_data *data, int fd);
 void	printf_parser(t_data *data);
 void	clear_map(t_data *data);
+int		setup(t_data *data);
 #endif

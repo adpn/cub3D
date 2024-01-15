@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 16:54:20 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/15 10:39:05 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,19 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_path	path;
+	int		fd;
 
 	if (argc != 2)
 		return (ft_error("Wrong number of arguments"));
 	if (!check_extension(argv[1]) || ft_strlen(argv[1]) < 5)
 		return (ft_error("Wrong file extension"));
-	data.fd = open(argv[1], O_RDONLY);
-	if (data.fd == -1)
-		return (ft_error("Can't open file"));
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return (ft_error("Cannot open file"));
 	data.path = &path;
-	if (parser(&data, data.fd))
+	if (parser(&data, fd))
+		return (free_path(&data), 1);
+	if (setup(&data))
 		return (free_path(&data), 1);
 	printf_parser(&data);
 	free_path(&data);
