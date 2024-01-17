@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/15 10:39:05 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:54:03 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int	main(int argc, char **argv)
 	data.path = &path;
 	if (parser(&data, fd))
 		return (free_path(&data), 1);
-	if (setup(&data))
-		return (free_path(&data), 1);
 	printf_parser(&data);
+	if (setup(&data))
+		return (free_path(&data), clear_map(&data), 1);
 	free_path(&data);
 	clear_map(&data);
 	printf("All good\n");

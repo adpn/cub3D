@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/13 17:04:29 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/16 16:43:08 by adupin           ###   ########.fr       */
+/*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
+/*   Updated: 2024/01/16 16:51:55 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#include "display.h"
 
-# include "cub3d.h"
+int	get_color(t_img_info *img, int x, int y)
+{
+	char	*color;
 
-int	get_color(t_img_info *img, int x, int y);
-
-#endif
+	color = img->addr + (y * img->line_length + (x * (img->bits_per_pixel / 8)));
+	return (*(int *)color);
+}
