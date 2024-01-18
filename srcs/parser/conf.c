@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:39:50 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 17:05:04 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/18 12:54:34 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ static int	which_value(t_data *data, char **tab)
 
 	len = ft_strlen(tab[0]);
 	if (!ft_strncmp("NO", tab[0], len))
-		return (assign_wall(&data->path->north, tab));
+		return (assign_wall(&data->input->north, tab));
 	else if (!ft_strncmp("SO", tab[0], len))
-		return (assign_wall(&data->path->south, tab));
+		return (assign_wall(&data->input->south, tab));
 	else if (!ft_strncmp("EA", tab[0], len))
-		return (assign_wall(&data->path->east, tab));
+		return (assign_wall(&data->input->east, tab));
 	else if (!ft_strncmp("WE", tab[0], len))
-		return (assign_wall(&data->path->west, tab));
+		return (assign_wall(&data->input->west, tab));
 	else if (!ft_strncmp("F", tab[0], len))
-		return (assign_color(data->floor_color, tab));
+		return (assign_color(data->input->floor_rgb, tab));
 	else if (!ft_strncmp("C", tab[0], len))
-		return (assign_color(data->ceiling_color, tab));
+		return (assign_color(data->input->ceiling_rgb, tab));
 	else
 		return (ft_error("Wrong or missing element"));
 }
@@ -81,9 +81,9 @@ int	get_configuration(t_data *data, int fd)
 				return (free(line), 1);
 		}
 		free(line);
-		if (data->path->north && data->path->south && data->path->east
-			&& data->path->west && data->ceiling_color[0] != -1
-			&& data->floor_color[0] != -1)
+		if (data->input->north && data->input->south && data->input->east
+			&& data->input->west && data->input->ceiling_rgb[0] != -1
+			&& data->input->floor_rgb[0] != -1)
 			return (0);
 	}
 	return (0);

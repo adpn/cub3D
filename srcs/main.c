@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/16 13:54:03 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/18 14:54:53 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	printf_parser(t_data *data)
 {
 	int	i;
 
-	printf("North: %s\n", data->path->north);
-	printf("South: %s\n", data->path->south);
-	printf("East: %s\n", data->path->east);
-	printf("West: %s\n", data->path->west);
-	printf("Ceiling: %d %d %d\n", data->ceiling_color[0],
-		data->ceiling_color[1], data->ceiling_color[2]);
-	printf("Floor: %d %d %d\n", data->floor_color[0],
-		data->floor_color[1], data->floor_color[2]);
+	printf("North: %s\n", data->input->north);
+	printf("South: %s\n", data->input->south);
+	printf("East: %s\n", data->input->east);
+	printf("West: %s\n", data->input->west);
+	printf("Ceiling: %d %d %d\n", data->input->ceiling_rgb[0],
+		data->input->ceiling_rgb[1], data->input->ceiling_rgb[2]);
+	printf("Floor: %d %d %d\n", data->input->floor_rgb[0],
+		data->input->floor_rgb[1], data->input->floor_rgb[2]);
 	printf("Map:\n");
 	i = 0;
 	while (data->map[i])
@@ -47,25 +47,27 @@ void	printf_parser(t_data *data)
 	}
 }
 
-void	free_path(t_data *data)
+void	free_input(t_data *data)
 {
-	t_path	*path;
+	t_input	*input;
 
-	path = data->path;
-	if (path->north)
-		free(path->north);
-	if (path->south)
-		free(path->south);
-	if (path->west)
-		free(path->west);
-	if (path->east)
-		free(path->east);
+	input = data->input;
+	if (input->north)
+		free(input->north);
+	if (input->south)
+		free(input->south);
+	if (input->west)
+		free(input->west);
+	if (input->east)
+		free(input->east);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
-	t_path	path;
+	t_data		data;
+	t_input		input;
+	t_ray		ray;
+	t_player	player;
 	int		fd;
 
 	if (argc != 2)
@@ -75,13 +77,17 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Cannot open file"));
-	data.path = &path;
+	data.input = &input;
+	data.ray = &ray;
+	data.player = &player;
 	if (parser(&data, fd))
-		return (free_path(&data), 1);
+		return (free_input(&data), 1);
 	printf_parser(&data);
 	if (setup(&data))
-		return (free_path(&data), clear_map(&data), 1);
-	free_path(&data);
+		return (free_input(&data), clear_map(&data), 1);
+	display(&data);
+	mlx_loop(data.mlx_ptr);
+	free_input(&data);
 	clear_map(&data);
 	printf("All good\n");
 	return (0);

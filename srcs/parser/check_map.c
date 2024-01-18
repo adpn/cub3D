@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 16:56:30 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/18 13:19:31 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,22 @@ int	check_all_lines(char **map)
 	return (0);
 }
 
-int	check_player_position(char **map)
+void	assign_dir(char c, t_player *player) //seems logical may need to check
+{
+	player->dir_x = 0;
+	player->dir_y = 0;
+	if (c == 'N')
+		player->dir_y = -1;
+	else if (c == 'S')
+		player->dir_y = 1;
+	else if (c == 'W')
+		player->dir_x = -1;
+	else if (c == 'E')
+		player->dir_x = 1;
+	
+}
+
+int	check_player_position(char **map, t_player *player)
 {
 	int	i;
 	int	j;
@@ -55,7 +70,13 @@ int	check_player_position(char **map)
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'W' || map[i][j] == 'E')
-				nb_player++;
+				{
+					//probably need to change the structure of the function
+					player->pos_x = j;
+					player->pos_y = i;
+					assign_dir(map[i][j], player);
+					nb_player++;	
+				}
 			j++;
 			if (nb_player > 1)
 				return (ft_error("Too many players in the map"));
@@ -96,7 +117,7 @@ int	check_map(t_data *data)
 {
 	if (check_all_lines(data->map))
 		return (1);
-	if (check_player_position(data->map))
+	if (check_player_position(data->map, data->player))
 		return (1);
 	if (check_map_closed(data->map))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/17 17:15:11 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/18 14:57:49 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,29 @@ typedef struct s_img_info
 	int		endian;
 }	t_img_info;
 
-typedef struct s_path
+typedef struct s_input //change with input and add rgb ceiling and floor
 {
 	char	*north;
 	char	*south;
 	char	*west;
 	char	*east;
-}				t_path;
+	int		ceiling_rgb[3];
+	int		floor_rgb[3];
+}				t_input;
 
 typedef struct s_player
 {
 	float	pos_x;
 	float	pos_y;
+
 	float	dir_x;
 	float	dir_y;
+	
+	float	plane_x;
+	float	plane_y;
 }				t_player;
 
-typedef struct s_ray
+typedef struct s_ray //probably need to think about this structure
 {
 	//Direction vector
 	float	dir_x;
@@ -59,6 +65,14 @@ typedef struct s_ray
 	float	pos_x;
 	float	pos_y;
 
+	//Camera is along the plane, and from where the ray starts
+	float	camera_x;
+	float	camera_y;
+
+	//Distance to go to the next x side or next y side
+	float	del_dist_x;
+	float	del_dist_y;
+
 }		t_ray;
 
 
@@ -66,14 +80,16 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*mlx_win;
-	int			ceiling_color[3];
-	int			floor_color[3];
 	char		**map;
-	t_path		*path;
+	t_input		*input;
 	t_img_info	*north_img;
 	t_img_info	*south_img;
 	t_img_info	*west_img;
 	t_img_info	*east_img;
+	int			ceiling_color;
+	int			floor_color;
+	t_ray		*ray;
+	t_player	*player;
 }			t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/15 10:39:34 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/18 13:29:09 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <mlx.h>
 # include "struct.h"
 
+# define SCREEN_WIDTH 640
+# define SCREEN_HEIGHT 480
+
 enum e_keys{
 	KEY_W = 13,
 	KEY_A = 0,
@@ -39,4 +42,5 @@ int		parser(t_data *data, int fd);
 void	printf_parser(t_data *data);
 void	clear_map(t_data *data);
 int		setup(t_data *data);
+int		display(t_data *data);
 #endif
