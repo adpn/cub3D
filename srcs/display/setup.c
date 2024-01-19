@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/18 13:29:57 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/19 11:46:50 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	setup(t_data *data)
 	img_to_addr(data->south_img);
 	img_to_addr(data->west_img);
 	img_to_addr(data->east_img);
-	data->mlx_win = mlx_new_window(data->mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D"); //may need to protect and change size
+	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D"); //may need to protect and change size
 	
 	return (0);
 }

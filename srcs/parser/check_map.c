@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/18 13:19:31 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:03:57 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	check_player_position(char **map, t_player *player)
 					player->pos_x = j;
 					player->pos_y = i;
 					assign_dir(map[i][j], player);
+					map[i][j] = '0';
 					nb_player++;	
 				}
 			j++;

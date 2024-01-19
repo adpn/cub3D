@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/18 13:29:09 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/19 11:46:50 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <mlx.h>
 # include "struct.h"
 
-# define SCREEN_WIDTH 640
-# define SCREEN_HEIGHT 480
+# define WINDOW_WIDTH 640
+# define WINDOW_HEIGHT 480
 
 enum e_keys{
 	KEY_W = 13,
