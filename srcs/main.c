@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/22 10:07:33 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/22 14:54:04 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ int	main(int argc, char **argv)
 	printf_parser(&data);
 	if (setup(&data))
 		return (free_input(&data), clear_map(&data), 1);
-	display(&data);
-	mlx_loop(data.mlx_ptr);
 	free_input(&data);
-	clear_map(&data);
+	if (display(&data))
+		return (clear_map(&data), 1); // probably has to free other stuff
+	mlx_loop(data.mlx_ptr);
 	printf("All good\n");
 	return (0);
 }

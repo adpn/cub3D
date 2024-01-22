@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/19 14:03:57 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/22 14:54:48 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	check_player_position(char **map, t_player *player)
 				|| map[i][j] == 'W' || map[i][j] == 'E')
 				{
 					//probably need to change the structure of the function
-					player->pos_x = j;
-					player->pos_y = i;
+					player->pos_x = j + 0.5;
+					player->pos_y = i + 0.5;
 					assign_dir(map[i][j], player);
 					map[i][j] = '0';
 					nb_player++;	

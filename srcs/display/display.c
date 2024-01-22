@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/22 11:25:25 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:50:14 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,10 @@ int	update(t_data *data)
 	print_line(data->screen, x, drawStart, drawEnd, color);
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
-	printf("Printed\n");
+	static int i= 0;
+	printf("%i\n", i);
+	i++;
+	// printf("Printed\n");
 	return (1);
 }
 
@@ -235,11 +238,11 @@ int	display(t_data *data)
 		return (free(data->screen), free(data->key_pressed), ft_error("Mlx new image failed"));
 	init_keys(data->key_pressed);
 	img_to_addr(data->screen);
-	data->player->plane_y = data->player->dir_x * 0.66; // something definitely needs to change here, rotation inversed sometimes
-	data->player->plane_x = fabsf(data->player->dir_y) * 0.66;
+	data->player->plane_y = data->player->dir_x * 0.66;
+	data->player->plane_x = -data->player->dir_y * 0.66;
 	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data);
 	mlx_hook(data->mlx_win, ON_KEYUP, 0, keyup, data);
 	mlx_hook(data->mlx_win, ON_DESTROY, 0, end, data);
 	mlx_loop_hook(data->mlx_ptr, send_change, data);
-	return (1);
+	return (0);
 }
