@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/19 16:41:01 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/22 10:11:32 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,16 @@ typedef struct s_ray //probably need to think about this structure
 
 }		t_ray;
 
+typedef struct	s_key_pressed
+{
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		left;
+	int		right;
+}				t_key_pressed;
+
 
 typedef struct s_data
 {
@@ -88,6 +98,7 @@ typedef struct s_data
 	t_ray		*ray;
 	t_player	*player;
 	t_img_info	*screen;
+	t_key_pressed	*key_pressed;
 }			t_data;
 
 #endif

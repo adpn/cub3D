@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/19 16:43:36 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/22 11:25:25 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,21 @@ int	end(t_data *data)
 	return (1);
 }
 
-int	key_hook(int keycode, t_data *data)
+int	send_change(t_data *data)
 {
-	if (keycode == KEY_W)
+	if (data->key_pressed->w)
 		move_forward(data);
-	if (keycode == KEY_S)
+	if (data->key_pressed->s)
 		move_backward(data);
-	if (keycode == KEY_D)
+	if (data->key_pressed->d)
 		move_right(data);
-	if (keycode == KEY_A)
+	if (data->key_pressed->a)
 		move_left(data);
-	if (keycode == KEY_LEFT)
+	if (data->key_pressed->left)
 		turn_left(data);
-	if (keycode == KEY_RIGHT)
+	if (data->key_pressed->right)
 		turn_right(data);
-	if (keycode == KEY_ESC)
-		end(data);
+	update(data);
 	return (0);
 }
 
@@ -177,20 +176,70 @@ int	update(t_data *data)
 	return (1);
 }
 
+int	keydown(int keycode, t_data *data)
+{
+	if (keycode == KEY_W)
+		data->key_pressed->w = 1;
+	if (keycode == KEY_A)
+		data->key_pressed->a = 1;
+	if (keycode == KEY_S)
+		data->key_pressed->s = 1;
+	if (keycode == KEY_D)
+		data->key_pressed->d = 1;
+	if (keycode == KEY_LEFT)
+		data->key_pressed->left = 1;
+	if (keycode == KEY_RIGHT)
+		data->key_pressed->right = 1;
+	if (keycode == KEY_ESC)
+		end(data);
+	return (0);
+}
+
+int	keyup(int keycode, t_data *data)
+{
+	if (keycode == KEY_W)
+		data->key_pressed->w = 0;
+	if (keycode == KEY_A)
+		data->key_pressed->a = 0;
+	if (keycode == KEY_S)
+		data->key_pressed->s = 0;
+	if (keycode == KEY_D)
+		data->key_pressed->d = 0;
+	if (keycode == KEY_LEFT)
+		data->key_pressed->left = 0;
+	if (keycode == KEY_RIGHT)
+		data->key_pressed->right = 0;
+	return (0);
+}
+
+void	init_keys(t_key_pressed *keys)
+{
+	keys->w = 0;
+	keys->a = 0;
+	keys->s = 0;
+	keys->d = 0;
+	keys->left = 0;
+	keys->right = 0;
+}
 
 int	display(t_data *data)
 {
 	data->screen = malloc(sizeof(t_img_info));
 	if (!data->screen)
 		return (ft_error("Malloc failed"));
+	data->key_pressed = malloc(sizeof(t_key_pressed));
+	if (!data->key_pressed)
+		return (free(data->screen), ft_error("Malloc failed"));
 	data->screen->img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->screen->img)
-		return (free(data->screen), ft_error("Mlx new image failed"));
+		return (free(data->screen), free(data->key_pressed), ft_error("Mlx new image failed"));
+	init_keys(data->key_pressed);
 	img_to_addr(data->screen);
-	data->player->plane_y = fabsf(data->player->dir_x) * 0.66;
+	data->player->plane_y = data->player->dir_x * 0.66; // something definitely needs to change here, rotation inversed sometimes
 	data->player->plane_x = fabsf(data->player->dir_y) * 0.66;
-	update(data);
-	mlx_key_hook(data->mlx_win, key_hook, data);
-	mlx_hook(data->mlx_win, 17, 0, end, data);
+	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data);
+	mlx_hook(data->mlx_win, ON_KEYUP, 0, keyup, data);
+	mlx_hook(data->mlx_win, ON_DESTROY, 0, end, data);
+	mlx_loop_hook(data->mlx_ptr, send_change, data);
 	return (1);
 }

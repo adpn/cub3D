@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/19 11:46:50 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/22 11:05:36 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
+
+# define ON_KEYDOWN 2
+# define ON_KEYUP 3
+# define ON_DESTROY 17
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.05
 
 enum e_keys{
 	KEY_W = 13,
