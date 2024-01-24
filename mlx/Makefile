@@ -11,6 +11,9 @@ CFLAGS+=-O2
 # add to match string put with X11 in size and position
 CFLAGS+= -DSTRINGPUTX11
 
+# add to silence 'deprecated' warnings (bvercaem)
+CFLAGS+= -Wno-deprecated-declarations
+
 YELLOW			=	\x1b[33m
 NO_COLOR		=	\x1b[0m
 all: $(NOM)
