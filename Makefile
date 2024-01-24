@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/19 13:47:42 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/24 13:46:16 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME 			= 	cub3D
 
 # Compiler, compiler flags and linking flags
 CC				= 	cc
-CFLAGS 			= 	-Wall -Wextra -Werror -Iincludes -Ilibft/include -g 
+CFLAGS 			= 	-Wall -Wextra -Werror -Iincludes -Ilibft/include -Imlx -g 
 DFLAGS      	=   -fsanitize=address
-MLXFLAGS		=	-lmlx -framework OpenGL -framework AppKit
+MLXFLAGS		=	-framework OpenGL -framework AppKit
 
 # Directories for sources files, object files, and the libft library
 SRCS_DIR		= 	srcs
@@ -25,6 +25,7 @@ PARSER_DIR		=   $(SRCS_DIR)/parser
 DISPLAY_DIR		=   $(SRCS_DIR)/display
 UTILS_DIR		=	$(SRCS_DIR)/utils
 LIBFT_DIR 		= 	libft
+MLX_DIR			=	mlx
 BUILD_DIR 		= 	build
 
 # Define the source files
@@ -80,7 +81,7 @@ $(BUILD_DIR)/%.o: $(UTILS_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Rule to build the executable from the objects and the libft library
-$(NAME): $(OBJS) $(LIBFT_DIR)/libft.a
+$(NAME): $(OBJS) $(LIBFT_DIR)/libft.a $(MLX_DIR)/libmlx.a
 	@echo "$(YELLOW)Linking $(NAME)... $(NO_COLOR)"
 	@$(CC) $(CFLAGS) $(MLXFLAGS) -o $@ $^
 	@echo "$(GREEN)$(BOLD)Enjoy!$(BOLD_OFF)$(NO_COLOR)"
@@ -88,6 +89,10 @@ $(NAME): $(OBJS) $(LIBFT_DIR)/libft.a
 # Rule to build the libft library
 $(LIBFT_DIR)/libft.a:
 	@make -C $(LIBFT_DIR)
+
+# Rule to build the mlx library
+$(MLX_DIR)/libmlx.a:
+	@make -C $(MLX_DIR)
 
 # Phony target to build the libft library
 libft:
@@ -101,6 +106,7 @@ clean:
 	@echo "$(RED)Deleting objects...$(NO_COLOR)"
 	@rm -rf $(BUILD_DIR)
 	@make -C $(LIBFT_DIR) clean
+	@make -C $(MLX_DIR) clean
 
 # Phony target to remove the executable and build/debug objects
 fclean: clean
