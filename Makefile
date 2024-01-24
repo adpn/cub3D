@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/24 13:46:16 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/24 17:54:08 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,9 @@ PARSER_FILES	=	cat_all_in_one.c \
 DISPLAY_FILES	=	setup.c \
 					display.c \
 					mlx_helper.c \
-					move.c
+					move.c \
+					input_mgmt.c \
+					turn_look.c
 UTILS_FILES		=	utils.c
 
 # Defining the paths of the sources files 

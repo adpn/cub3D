@@ -19,8 +19,8 @@ NO_COLOR		=	\x1b[0m
 all: $(NOM)
 
 $(NOM):	$(OBJ)
-	@echo "$(YELLOW)Creating $(NOM)...$(NO_COLOR)"
-	@ar -r $(NOM) $(OBJ)
+	@echo "$(YELLOW)Mlx ready$(NO_COLOR)"
+	@ar -rc $(NOM) $(OBJ)
 	@ranlib $(NOM)
 
 clean:

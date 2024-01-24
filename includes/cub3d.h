@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/24 11:48:54 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:51:17 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define ON_KEYUP 3
 # define ON_DESTROY 17
 # define ON_MOUSEMOVE 6
+# define RIGHT_CLICK 2
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
 

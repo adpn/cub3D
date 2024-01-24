@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/24 12:07:24 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:33:11 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	print_line(t_img_info *img, int x, int start, int end, int color)
 }
 int	end(t_data *data)
 {
-	printf("Quit\n");
+	printf("Bye bye !\n");
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	mlx_destroy_image(data->mlx_ptr, data->screen->img);
 	mlx_destroy_image(data->mlx_ptr, data->north_img->img);
@@ -53,24 +53,6 @@ int	end(t_data *data)
 	free(data->east_img);
 	exit(0);
 	return (1);
-}
-
-int	send_change(t_data *data)
-{
-	if (data->key_pressed->w)
-		move_forward(data);
-	if (data->key_pressed->s)
-		move_backward(data);
-	if (data->key_pressed->d)
-		move_right(data);
-	if (data->key_pressed->a)
-		move_left(data);
-	if (data->key_pressed->left)
-		turn_left(data);
-	if (data->key_pressed->right)
-		turn_right(data);
-	update(data);
-	return (0);
 }
 
 int	update(t_data *data)
@@ -179,50 +161,7 @@ int	update(t_data *data)
 	return (1);
 }
 
-int	keydown(int keycode, t_data *data)
-{
-	if (keycode == KEY_W)
-		data->key_pressed->w = 1;
-	if (keycode == KEY_A)
-		data->key_pressed->a = 1;
-	if (keycode == KEY_S)
-		data->key_pressed->s = 1;
-	if (keycode == KEY_D)
-		data->key_pressed->d = 1;
-	if (keycode == KEY_LEFT)
-		data->key_pressed->left = 1;
-	if (keycode == KEY_RIGHT)
-		data->key_pressed->right = 1;
-	if (keycode == KEY_ESC)
-		end(data);
-	return (0);
-}
-
-int	keyup(int keycode, t_data *data)
-{
-	if (keycode == KEY_W)
-		data->key_pressed->w = 0;
-	if (keycode == KEY_A)
-		data->key_pressed->a = 0;
-	if (keycode == KEY_S)
-		data->key_pressed->s = 0;
-	if (keycode == KEY_D)
-		data->key_pressed->d = 0;
-	if (keycode == KEY_LEFT)
-		data->key_pressed->left = 0;
-	if (keycode == KEY_RIGHT)
-		data->key_pressed->right = 0;
-	return (0);
-}
-
-int mouse_move(int x, int y, t_data *data)
-{
-	printf("x: %i, y: %i\n", x, y);
-	(void)data;
-	return (0);
-}
-
-void	init_keys(t_key_pressed *keys)
+void	init_keys(t_input *keys)
 {
 	keys->w = 0;
 	keys->a = 0;
@@ -230,6 +169,7 @@ void	init_keys(t_key_pressed *keys)
 	keys->d = 0;
 	keys->left = 0;
 	keys->right = 0;
+	keys->mouse_locked = 1;
 }
 
 int	display(t_data *data)
@@ -237,21 +177,19 @@ int	display(t_data *data)
 	data->screen = malloc(sizeof(t_img_info));
 	if (!data->screen)
 		return (ft_error("Malloc failed"));
-	data->key_pressed = malloc(sizeof(t_key_pressed));
-	if (!data->key_pressed)
-		return (free(data->screen), ft_error("Malloc failed"));
 	data->screen->img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->screen->img)
-		return (free(data->screen), free(data->key_pressed), ft_error("Mlx new image failed"));
-	init_keys(data->key_pressed);
+		return (free(data->screen), ft_error("Mlx new image failed"));
+	init_keys(&data->input);
 	img_to_addr(data->screen);
 	data->player->plane_y = data->player->dir_x * 0.66;
 	data->player->plane_x = -data->player->dir_y * 0.66;
 	mlx_mouse_hide();
-	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data);
+	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data); //need to put all the hook in a function
 	mlx_hook(data->mlx_win, ON_KEYUP, 0, keyup, data);
 	mlx_hook(data->mlx_win, ON_DESTROY, 0, end, data);
 	mlx_hook(data->mlx_win, ON_MOUSEMOVE, 0, mouse_move, data);
+	mlx_mouse_hook(data->mlx_win, mouse_click, data);
 	mlx_loop_hook(data->mlx_ptr, send_change, data);
 	return (0);
 }

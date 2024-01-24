@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:29 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/19 16:43:20 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:04:32 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,13 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turn_right(t_data *data);
 void	turn_left(t_data *data);
+void	look_left(t_data *data, float x);
+void	look_right(t_data *data, float x);
+
+int	keydown(int keycode, t_data *data);
+int	keyup(int keycode, t_data *data);
+int mouse_move(int x, int y, t_data *data);
+int	send_change(t_data *data);
+int	end(t_data *data);
+int mouse_click(int button, int x, int y, t_data *data);
 #endif

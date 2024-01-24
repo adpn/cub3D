@@ -68,31 +68,3 @@ void	move_left(t_data *data)
 	printf("Go left\n");
 }
 
-void	turn_right(t_data *data)
-{
-	float	old_dir_x;
-	float	old_plane_x;
-
-	old_dir_x = data->player->dir_x;
-	old_plane_x = data->player->plane_x;
-	data->player->dir_x = data->player->dir_x * cosf(ROT_SPEED) - data->player->dir_y * sinf(ROT_SPEED);
-	data->player->dir_y = old_dir_x * sinf(ROT_SPEED) + data->player->dir_y * cosf(ROT_SPEED);
-	data->player->plane_x = data->player->plane_x * cos(ROT_SPEED) - data->player->plane_y * sin(ROT_SPEED);
-	data->player->plane_y = old_plane_x * sin(ROT_SPEED) + data->player->plane_y * cos(ROT_SPEED);
-	printf("Turn right\n");
-
-}
-
-void	turn_left(t_data *data)
-{
-	float	old_dir_x;
-	float	old_plane_x;
-	
-	old_dir_x = data->player->dir_x;
-	old_plane_x = data->player->plane_x;
-	data->player->dir_x = data->player->dir_x * cosf(-ROT_SPEED) - data->player->dir_y * sinf(-ROT_SPEED);
-	data->player->dir_y = old_dir_x * sinf(-ROT_SPEED) + data->player->dir_y * cosf(-ROT_SPEED);
-	data->player->plane_x = data->player->plane_x * cos(-ROT_SPEED) - data->player->plane_y * sin(-ROT_SPEED);
-	data->player->plane_y = old_plane_x * sin(-ROT_SPEED) + data->player->plane_y * cos(-ROT_SPEED);
-	printf("Turn left\n");
-}

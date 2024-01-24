@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/19 11:46:50 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:31:14 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ int	setup_textures(t_data *data)
 	data->west_img->img = NULL;
 	data->east_img->img = NULL;
 	data->north_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->north, &data->north_img->img_width,
+		data->parser->north, &data->north_img->img_width,
 			&data->north_img->img_height);
 	if (!data->north_img->img)
 		return (1);
 	data->south_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->south, &data->south_img->img_width,
+		data->parser->south, &data->south_img->img_width,
 			&data->south_img->img_height);
 	if (!data->south_img->img)
 		return (destroy_textures(data), 1);
 	data->west_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->west, &data->west_img->img_width,
+		data->parser->west, &data->west_img->img_width,
 			&data->west_img->img_height);
 	if (!data->west_img->img)
 		return (destroy_textures(data), 1);
 	data->east_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->east, &data->east_img->img_width,
+		data->parser->east, &data->east_img->img_width,
 			&data->east_img->img_height);
 	if (!data->east_img->img)
 		return (destroy_textures(data), 1);
