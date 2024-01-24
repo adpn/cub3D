@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/22 17:50:14 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:07:24 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	update(t_data *data)
 	ft_memset(data->screen->addr, 0, WINDOW_WIDTH * WINDOW_HEIGHT * 4);
 	ray = data->ray;
 	player = data->player;
-	printf("Player position: %f, %f\n", player->pos_x, player->pos_y);
-	printf("Player direction: %f, %f\n", player->dir_x, player->dir_y);
-	printf("Player plane: %f, %f\n", player->plane_x, player->plane_y);
+	// printf("Player position: %f, %f\n", player->pos_x, player->pos_y);
+	// printf("Player direction: %f, %f\n", player->dir_x, player->dir_y);
+	// printf("Player plane: %f, %f\n", player->plane_x, player->plane_y);
 	for (int x = 0; x < WINDOW_WIDTH; x++)
 	{
 		//printf("%i\n", x);
@@ -172,9 +172,9 @@ int	update(t_data *data)
 	print_line(data->screen, x, drawStart, drawEnd, color);
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
-	static int i= 0;
-	printf("%i\n", i);
-	i++;
+	// static int i= 0;
+	// printf("%i\n", i);
+	// i++;
 	// printf("Printed\n");
 	return (1);
 }
@@ -215,6 +215,13 @@ int	keyup(int keycode, t_data *data)
 	return (0);
 }
 
+int mouse_move(int x, int y, t_data *data)
+{
+	printf("x: %i, y: %i\n", x, y);
+	(void)data;
+	return (0);
+}
+
 void	init_keys(t_key_pressed *keys)
 {
 	keys->w = 0;
@@ -240,9 +247,11 @@ int	display(t_data *data)
 	img_to_addr(data->screen);
 	data->player->plane_y = data->player->dir_x * 0.66;
 	data->player->plane_x = -data->player->dir_y * 0.66;
+	mlx_mouse_hide();
 	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data);
 	mlx_hook(data->mlx_win, ON_KEYUP, 0, keyup, data);
 	mlx_hook(data->mlx_win, ON_DESTROY, 0, end, data);
+	mlx_hook(data->mlx_win, ON_MOUSEMOVE, 0, mouse_move, data);
 	mlx_loop_hook(data->mlx_ptr, send_change, data);
 	return (0);
 }
