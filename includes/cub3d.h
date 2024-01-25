@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/22 17:49:40 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:18:05 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit
 # include <unistd.h> // read, write, close
-# include <fcntl.h> // open 
+# include <fcntl.h> // open
 # include <string.h> // strerror
 # include <errno.h> // perror
 # include <math.h>
@@ -26,6 +26,10 @@
 
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
+
+// MAP_SIZE should always be odd (so the player can be centered)
+# define MAP_SIZE 15
+# define MAP_TILE 5
 
 # define ON_KEYDOWN 2
 # define ON_KEYUP 3

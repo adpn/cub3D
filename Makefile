@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
+#    By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/24 13:46:16 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/24 16:41:32 by bvercaem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME 			= 	cub3D
 
 # Compiler, compiler flags and linking flags
 CC				= 	cc
-CFLAGS 			= 	-Wall -Wextra -Werror -Iincludes -Ilibft/include -Imlx -g 
+CFLAGS 			= 	-Wall -Wextra -Werror -Iincludes -Ilibft/include -Imlx -g
 DFLAGS      	=   -fsanitize=address
 MLXFLAGS		=	-framework OpenGL -framework AppKit
 
@@ -40,10 +40,11 @@ PARSER_FILES	=	cat_all_in_one.c \
 DISPLAY_FILES	=	setup.c \
 					display.c \
 					mlx_helper.c \
-					move.c
+					move.c \
+					minimap.c
 UTILS_FILES		=	utils.c
 
-# Defining the paths of the sources files 
+# Defining the paths of the sources files
 SRC_MAIN		= 	$(addprefix $(SRCS_DIR)/,$(MAIN_FILE))
 SRC_PARSER  	=	$(addprefix $(PARSER_DIR)/, $(PARSER_FILES))
 SRC_DISPLAY 	=	$(addprefix $(DISPLAY_DIR)/, $(DISPLAY_FILES))
@@ -63,7 +64,7 @@ NO_COLOR		=	\x1b[0m
 BOLD			= 	\x1b[1m
 BOLD_OFF		=	\x1b[21m
 
-# Rules to build the objects from the sources 
+# Rules to build the objects from the sources
 $(BUILD_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -119,7 +120,7 @@ fclean: clean
 re: fclean all
 
 # Rule to build with debug flags
-debug: CFLAGS += $(DFLAGS) 
+debug: CFLAGS += $(DFLAGS)
 debug: re
 
 # Phony targets for make

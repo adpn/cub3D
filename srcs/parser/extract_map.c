@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:38:34 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 17:06:14 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:26:32 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	clear_map(t_data *data)
 	data->map = NULL;
 }
 
-char	*skip_empty_line(int fd)
+static char	*skip_empty_line(int fd)
 {
 	char	*line;
 
@@ -46,7 +46,7 @@ char	*skip_empty_line(int fd)
 	return (NULL);
 }
 
-int	add_line_to_map(t_data *data, char *line)
+static int	add_line_to_map(t_data *data, char *line)
 {
 	int		nb_lines;
 	int		i;
@@ -72,10 +72,11 @@ int	add_line_to_map(t_data *data, char *line)
 	new_tab[i + 1] = NULL;
 	free(tab);
 	data->map = new_tab;
+	data->map_size++;
 	return (0);
 }
 
-int	fill_map(t_data *data, int fd)
+static int	fill_map(t_data *data, int fd)
 {
 	char	*line;
 
@@ -95,6 +96,7 @@ int	get_map(t_data *data, int fd)
 {
 	char	*line;
 
+	data->map_size = 0;
 	line = skip_empty_line(fd);
 	if (!line)
 		return (ft_error("Map is missing"));

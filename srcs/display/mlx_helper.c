@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_helper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:26:34 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/18 17:13:28 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/24 20:13:52 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,20 @@ void	mlx_pixel_put_img(t_img_info *img, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
+void	print_line(t_img_info *img, int x, int start, int end, int color)
+{
+	while (start < end)
+	{
+		mlx_pixel_put_img(img, x, start, color);
+		start++;
+	}
+}
+
+void	print_rect(t_img_info *img, int x, int y, int width, int height, int color)
+{
+	while (width--)
+	{
+		print_line(img, x, y, y + height, color);
+		x++;
+	}
+}

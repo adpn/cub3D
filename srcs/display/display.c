@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/22 17:50:14 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/25 15:24:53 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ void	print_texture(t_data *data) // to remove, was just for testing
 	//mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, img, 0, 0);
 }
 
-void	print_line(t_img_info *img, int x, int start, int end, int color)
-{
-	while (start < end)
-	{
-		mlx_pixel_put_img(img, x, start, color);
-		start++;		
-	}	
-}
 int	end(t_data *data)
 {
 	printf("Quit\n");
@@ -77,7 +69,7 @@ int	update(t_data *data)
 {
 	t_player	*player;
 	t_ray		*ray;
-	
+
 	ft_memset(data->screen->addr, 0, WINDOW_WIDTH * WINDOW_HEIGHT * 4);
 	ray = data->ray;
 	player = data->player;
@@ -90,18 +82,18 @@ int	update(t_data *data)
 		ray->camera_x = 2 * x / (float)WINDOW_WIDTH - 1;
 		ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
 		ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
-		
+
 		ray->map_x = (int)player->pos_x;
 		ray->map_y = (int)player->pos_y;
-		
+
 		ray->del_dist_x = fabsf(1 / ray->dir_x);
 		ray->del_dist_y = fabsf(1 / ray->dir_y);
-		
+
 		//length of ray from current position to next x or y-side
 		float	perpWallDist; //perpendicular wall??
 		float sideDistX;
 		float sideDistY;
-		int stepX; 
+		int stepX;
      	int stepY;
 		int hit = 0; //was there a wall hit?
       	int side; //was a NS or a EW wall hit?
@@ -171,7 +163,10 @@ int	update(t_data *data)
 		color = get_pixel_color(data->west_img, 1, 1);
 	print_line(data->screen, x, drawStart, drawEnd, color);
 	}
+// added two minimap fts here
+	update_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->minimap->img, WINDOW_WIDTH - data->minimap->img_width - 10, 10);
 	static int i= 0;
 	printf("%i\n", i);
 	i++;
@@ -236,6 +231,9 @@ int	display(t_data *data)
 	data->screen->img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->screen->img)
 		return (free(data->screen), free(data->key_pressed), ft_error("Mlx new image failed"));
+	if (generate_minimap(data))
+		return (mlx_destroy_image(data->mlx_ptr, data->screen->img),
+			free(data->screen), free(data->key_pressed), 1);
 	init_keys(data->key_pressed);
 	img_to_addr(data->screen);
 	data->player->plane_y = data->player->dir_x * 0.66;
