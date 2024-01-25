@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:15 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/25 15:16:49 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:50:24 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ int	generate_minimap(t_data *data)
 	return (0);
 }
 
-static int	should_print(t_data *data, int x, int y)
+void	clear_minimap(t_data *data)
 {
-	if (x < 0 || y < 0 || y >= data->map_size
-		|| x >= (int) ft_strlen(data->map[y]))
-		return (0);
-	if (data->map[y][x] != '1')
-		return (0);
-	return (1);
+	if (!data->minimap)
+		return ;
+	mlx_destroy_image(data->mlx_ptr, data->minimap->img);
+	free(data->minimap);
+	data->minimap = NULL;
 }
 
 static void	parse_minimap(t_data *data, int x, int y)
@@ -59,7 +58,10 @@ static void	parse_minimap(t_data *data, int x, int y)
 		j = MAP_SIZE;
 		while (j--)
 		{
-			if (should_print(data, x + j, y + i))
+			if (x + j < 0 || y + i < 0 || y + i >= data->map_size
+ 				|| x + j >= (int) ft_strlen(data->map[y + i]) || data->map[y + i][x + j] != '1')
+				continue ;
+			else
 				print_rect(data->minimap, j * MAP_TILE + MAP_TILE,
 					i * MAP_TILE + MAP_TILE, MAP_TILE, MAP_TILE,
 					create_trgb(0, 150, 150, 150));

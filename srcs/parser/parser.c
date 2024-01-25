@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:50:00 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/18 12:54:11 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/25 18:52:41 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_value(t_data *data)
 	data->input->floor_rgb[1] = -1;
 	data->input->floor_rgb[2] = -1;
 	data->map = NULL;
+	data->minimap = NULL;
 }
 
 int	parser(t_data *data, int fd)

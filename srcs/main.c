@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/22 14:54:04 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/25 19:00:57 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 	t_input		input;
 	t_ray		ray;
 	t_player	player;
-	int		fd;
+	int			fd;
 
 	if (argc != 2)
 		return (ft_error("Wrong number of arguments"));
@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
 		return (free_input(&data), clear_map(&data), 1);
 	free_input(&data);
 	if (display(&data))
-		return (clear_map(&data), 1); // probably has to free other stuff
+		return (clear_map(&data), clear_minimap(&data), 1); // probably has to free other stuff
 	mlx_loop(data.mlx_ptr);
 	printf("All good\n");
 	return (0);

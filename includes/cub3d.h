@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/25 15:32:49 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:56:54 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_error(char *str);
 int		parser(t_data *data, int fd);
 void	printf_parser(t_data *data);
 void	clear_map(t_data *data);
+void	clear_minimap(t_data *data);
 int		setup(t_data *data);
 int		display(t_data *data);
 #endif

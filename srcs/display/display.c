@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/25 15:32:25 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:58:17 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	end(t_data *data)
 	free(data->west_img);
 	free(data->south_img);
 	free(data->east_img);
+	clear_map(data);
+	clear_minimap(data);
 	exit(0);
 	return (1);
 }
