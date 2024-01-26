@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:15 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/26 13:14:32 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:57:17 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ void	clear_minimap(t_data *data)
 	data->minimap = NULL;
 }
 
-static void	parse_minimap(t_data *data, int x, int y)
+static void	parse_minimap(t_data *data)
 {
 	int	i;
 	int	j;
+	int	x;
+	int	y;
 
+	x = (int) data->player->pos_x - ((MAP_SIZE - 1) / 2);
+	y = (int) data->player->pos_y - ((MAP_SIZE - 1) / 2);
 	i = MAP_SIZE;
 	while (i--)
 	{
@@ -93,13 +97,8 @@ static void	add_player(t_data *data)
 
 void	update_minimap(t_data *data)
 {
-	int	x;
-	int	y;
-
 	print_rect(data->minimap, MAP_TILE, MAP_TILE, MAP_SIZE * MAP_TILE,
 		MAP_SIZE * MAP_TILE, 0);
-	x = (int) data->player->pos_x - ((MAP_SIZE - 1) / 2);
-	y = (int) data->player->pos_y - ((MAP_SIZE - 1) / 2);
-	parse_minimap(data, x, y);
+	parse_minimap(data);
 	add_player(data);
 }

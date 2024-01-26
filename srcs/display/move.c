@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 13:44:35 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 16:26:24 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:00:49 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	move_forward(t_data *data)
 	y = data->player->pos_y;
 	x = (data->player->pos_x + data->player->dir_x * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) y][(int) (x + copysign(0.5, data->player->dir_x))] != '1')
-		data->player->pos_x += data->player->dir_x * MOVE_SPEED; //arbitrary speed MOVE_SPEED
+		&& data->map[(int) y][(int)(x + copysign(WALL_BUFFER, data->player->dir_x))] != '1')
+		data->player->pos_x += data->player->dir_x * MOVE_SPEED;
 	x = data->player->pos_x;
 	y = (data->player->pos_y + data->player->dir_y * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) (y + copysign(0.5, data->player->dir_y))][(int) x] != '1')
+		&& data->map[(int)(y + copysign(WALL_BUFFER, data->player->dir_y))][(int) x] != '1')
 		data->player->pos_y += data->player->dir_y * MOVE_SPEED;
 }
 
@@ -37,12 +37,12 @@ void	move_backward(t_data *data)
 	y = data->player->pos_y;
 	x = (data->player->pos_x - data->player->dir_x * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) y][(int) (x - copysign(0.5, data->player->dir_x))] != '1')
-		data->player->pos_x -= data->player->dir_x * MOVE_SPEED; //arbitrary speed MOVE_SPEED
+		&& data->map[(int) y][(int)(x - copysign(WALL_BUFFER, data->player->dir_x))] != '1')
+		data->player->pos_x -= data->player->dir_x * MOVE_SPEED;
 	x = data->player->pos_x;
 	y = (data->player->pos_y - data->player->dir_y * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) (y - copysign(0.5, data->player->dir_y))][(int) x] != '1')
+		&& data->map[(int)(y - copysign(WALL_BUFFER, data->player->dir_y))][(int) x] != '1')
 		data->player->pos_y -= data->player->dir_y * MOVE_SPEED;
 }
 
@@ -54,12 +54,12 @@ void	move_right(t_data *data)
 	y = data->player->pos_y;
 	x = (data->player->pos_x + data->player->plane_x * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) y][(int) (x + copysign(0.5, data->player->plane_x))] != '1')
-		data->player->pos_x += data->player->plane_x * MOVE_SPEED; //arbitrary speed MOVE_SPEED
+		&& data->map[(int) y][(int)(x + copysign(WALL_BUFFER, data->player->plane_x))] != '1')
+		data->player->pos_x += data->player->plane_x * MOVE_SPEED;
 	x = data->player->pos_x;
 	y = (data->player->pos_y + data->player->plane_y * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) (y + copysign(0.5, data->player->plane_y))][(int) x] != '1')
+		&& data->map[(int)(y + copysign(WALL_BUFFER, data->player->plane_y))][(int) x] != '1')
 		data->player->pos_y += data->player->plane_y * MOVE_SPEED;
 }
 
@@ -71,12 +71,12 @@ void	move_left(t_data *data)
 	y = data->player->pos_y;
 	x = (data->player->pos_x - data->player->plane_x * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) y][(int) (x - copysign(0.5, data->player->plane_x))] != '1')
-		data->player->pos_x -= data->player->plane_x * MOVE_SPEED; //arbitrary speed MOVE_SPEED
+		&& data->map[(int) y][(int)(x - copysign(WALL_BUFFER, data->player->plane_x))] != '1')
+		data->player->pos_x -= data->player->plane_x * MOVE_SPEED;
 	x = data->player->pos_x;
 	y = (data->player->pos_y - data->player->plane_y * MOVE_SPEED);
 	if (data->map[(int) y][(int) x] != '1'
-		&& data->map[(int) (y - copysign(0.5, data->player->plane_y))][(int) x] != '1')
+		&& data->map[(int)(y - copysign(WALL_BUFFER, data->player->plane_y))][(int) x] != '1')
 		data->player->pos_y -= data->player->plane_y * MOVE_SPEED;
 }
 
@@ -91,7 +91,6 @@ void	turn_right(t_data *data)
 	data->player->dir_y = old_dir_x * sinf(ROT_SPEED) + data->player->dir_y * cosf(ROT_SPEED);
 	data->player->plane_x = data->player->plane_x * cos(ROT_SPEED) - data->player->plane_y * sin(ROT_SPEED);
 	data->player->plane_y = old_plane_x * sin(ROT_SPEED) + data->player->plane_y * cos(ROT_SPEED);
-
 }
 
 void	turn_left(t_data *data)

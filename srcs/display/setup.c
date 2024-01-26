@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 14:20:03 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:12:41 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,27 @@ void	destroy_textures(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->door_img->img);
 }
 
+static void	do_texture(t_data *data, t_img_info *img, char *input, int *err)
+{
+	img->img = NULL;
+	if (*err)
+		return ;
+	img->img = mlx_xpm_file_to_image(data->mlx_ptr, input, &img->img_width, &img->img_height);
+	if (!img->img)
+		*err = 1;
+}
+
 int	setup_textures(t_data *data)
 {
-	data->north_img->img = NULL;
-	data->south_img->img = NULL;
-	data->west_img->img = NULL;
-	data->east_img->img = NULL;
-	data->door_img->img = NULL;
-	data->north_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->north, &data->north_img->img_width,
-			&data->north_img->img_height);
-	if (!data->north_img->img)
-		return (1);
-	data->south_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->south, &data->south_img->img_width,
-			&data->south_img->img_height);
-	if (!data->south_img->img)
-		return (destroy_textures(data), 1);
-	data->west_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->west, &data->west_img->img_width,
-			&data->west_img->img_height);
-	if (!data->west_img->img)
-		return (destroy_textures(data), 1);
-	data->east_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->east, &data->east_img->img_width,
-			&data->east_img->img_height);
-	if (!data->east_img->img)
-		return (destroy_textures(data), 1);
-	data->door_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
-		data->input->door, &data->door_img->img_width,
-			&data->door_img->img_height);
-	if (!data->door_img->img)
+	int	err;
+
+	err = 0;
+	do_texture(data, data->north_img, data->input->north, &err);
+	do_texture(data, data->south_img, data->input->south, &err);
+	do_texture(data, data->west_img, data->input->west, &err);
+	do_texture(data, data->east_img, data->input->east, &err);
+	do_texture(data, data->door_img, data->input->door, &err);
+	if (err)
 		return (destroy_textures(data), 1);
 	return (0);
 }
@@ -65,7 +55,7 @@ int	setup_textures(t_data *data)
 void	img_to_addr(t_img_info *img)
 {
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-		&img->line_length, &img->endian);
+			&img->line_length, &img->endian);
 }
 
 int	malloc_img(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/25 18:56:54 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:42:39 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define ON_MOUSEMOVE 6
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
+# define WALL_BUFFER 0.5
 
 enum e_keys{
 	KEY_W = 13,
