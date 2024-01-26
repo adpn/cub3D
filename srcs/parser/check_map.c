@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 13:40:30 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:20:38 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	check_map_closed(char **map)
 		{
 			if (ft_strchr("NSEWD0", map[i][j])
 				&& ((i == 0 || !ft_strchr("NSEWD01", map[i - 1][j]))
-				|| (!map[i + 1][j] || !ft_strchr("NSEWD01", map[i + 1][j]))
+				|| (!map[i + 1] || !ft_strchr("NSEWD01", map[i + 1][j]))
 				|| (j == 0 || !ft_strchr("NSEWD01", map[i][j - 1]))
 				|| (!map[i][j + 1] || !ft_strchr("NSEWD01", map[i][j + 1]))))
 				return (ft_error("Map is not closed"));
