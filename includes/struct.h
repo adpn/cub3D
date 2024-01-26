@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/24 19:53:28 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:11:05 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_input //change with input and add rgb ceiling and floor
 	char	*south;
 	char	*west;
 	char	*east;
+	char	*door;
 	int		ceiling_rgb[3];
 	int		floor_rgb[3];
 }				t_input;
@@ -94,6 +95,7 @@ typedef struct s_data
 	t_img_info	*south_img;
 	t_img_info	*west_img;
 	t_img_info	*east_img;
+	t_img_info	*door_img;
 	int			ceiling_color;
 	int			floor_color;
 	t_ray		*ray;

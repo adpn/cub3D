@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:39:50 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/18 12:54:34 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/26 13:31:55 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	which_value(t_data *data, char **tab)
 		return (assign_wall(&data->input->east, tab));
 	else if (!ft_strncmp("WE", tab[0], len))
 		return (assign_wall(&data->input->west, tab));
+	else if (!ft_strncmp("D", tab[0], len))
+		return (assign_wall(&data->input->door, tab));
 	else if (!ft_strncmp("F", tab[0], len))
 		return (assign_color(data->input->floor_rgb, tab));
 	else if (!ft_strncmp("C", tab[0], len))
@@ -82,7 +84,8 @@ int	get_configuration(t_data *data, int fd)
 		}
 		free(line);
 		if (data->input->north && data->input->south && data->input->east
-			&& data->input->west && data->input->ceiling_rgb[0] != -1
+			&& data->input->west && data->input->door
+			&& data->input->ceiling_rgb[0] != -1
 			&& data->input->floor_rgb[0] != -1)
 			return (0);
 	}

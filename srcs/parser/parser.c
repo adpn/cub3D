@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:50:00 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/25 18:52:41 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 13:27:55 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_value(t_data *data)
 	data->input->south = NULL;
 	data->input->west = NULL;
 	data->input->east = NULL;
+	data->input->door = NULL;
 	data->input->ceiling_rgb[0] = -1;
 	data->input->ceiling_rgb[1] = -1;
 	data->input->ceiling_rgb[2] = -1;

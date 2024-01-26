@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/25 19:00:57 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:20:36 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	printf_parser(t_data *data)
 	printf("South: %s\n", data->input->south);
 	printf("East: %s\n", data->input->east);
 	printf("West: %s\n", data->input->west);
+	printf("Door: %s\n", data->input->door);
 	printf("Ceiling: %d %d %d\n", data->input->ceiling_rgb[0],
 		data->input->ceiling_rgb[1], data->input->ceiling_rgb[2]);
 	printf("Floor: %d %d %d\n", data->input->floor_rgb[0],
@@ -60,6 +61,8 @@ void	free_input(t_data *data)
 		free(input->west);
 	if (input->east)
 		free(input->east);
+	if (input->door)
+		free(input->door);
 }
 
 int	main(int argc, char **argv)

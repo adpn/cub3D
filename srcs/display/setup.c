@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/19 11:46:50 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:20:03 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //i = 4 -> destroy all textures, otherwise destroy until the ith texture
 void	destroy_textures(t_data *data)
-{	
+{
 	if (data->north_img->img)
 		mlx_destroy_image(data->mlx_ptr, data->north_img->img);
 	if (data->south_img->img)
@@ -23,6 +23,8 @@ void	destroy_textures(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->west_img->img);
 	if (data->east_img->img)
 		mlx_destroy_image(data->mlx_ptr, data->east_img->img);
+	if (data->door_img->img)
+		mlx_destroy_image(data->mlx_ptr, data->door_img->img);
 }
 
 int	setup_textures(t_data *data)
@@ -31,6 +33,7 @@ int	setup_textures(t_data *data)
 	data->south_img->img = NULL;
 	data->west_img->img = NULL;
 	data->east_img->img = NULL;
+	data->door_img->img = NULL;
 	data->north_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
 		data->input->north, &data->north_img->img_width,
 			&data->north_img->img_height);
@@ -50,6 +53,11 @@ int	setup_textures(t_data *data)
 		data->input->east, &data->east_img->img_width,
 			&data->east_img->img_height);
 	if (!data->east_img->img)
+		return (destroy_textures(data), 1);
+	data->door_img->img = mlx_xpm_file_to_image(data->mlx_ptr,
+		data->input->door, &data->door_img->img_width,
+			&data->door_img->img_height);
+	if (!data->door_img->img)
 		return (destroy_textures(data), 1);
 	return (0);
 }
@@ -74,7 +82,10 @@ int	malloc_img(t_data *data)
 	data->east_img = malloc(sizeof(t_img_info));
 	if (!data->east_img)
 		return (1);
-	return (0);	
+	data->door_img = malloc(sizeof(t_img_info));
+	if (!data->door_img)
+		return (1);
+	return (0);
 }
 
 void	free_img(t_data *data)
@@ -87,6 +98,8 @@ void	free_img(t_data *data)
 		free(data->west_img);
 	if (data->east_img)
 		free(data->east_img);
+	if (data->door_img)
+		free(data->door_img);
 }
 
 int	create_trgb(int t, int r, int g, int b)
@@ -115,7 +128,8 @@ int	setup(t_data *data)
 	img_to_addr(data->south_img);
 	img_to_addr(data->west_img);
 	img_to_addr(data->east_img);
+	img_to_addr(data->door_img);
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D"); //may need to protect and change size
-	
+
 	return (0);
 }

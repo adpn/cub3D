@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/25 18:58:17 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:49:47 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ int	update(t_data *data)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (data->map[ray->map_y][ray->map_x] != '0')
+			if (data->map[ray->map_y][ray->map_x] == '1'
+				|| (data->map[ray->map_y][ray->map_x] == 'D' && (fabs(ray->map_x - player->pos_x) > 3 || fabs(ray->map_y - player->pos_y) > 3)))
 				hit = 1;
     	}
 		//printf("DDA FINISH\n");
