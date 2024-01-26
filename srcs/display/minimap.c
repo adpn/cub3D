@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:15 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/25 18:50:24 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/26 13:14:32 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void	parse_minimap(t_data *data, int x, int y)
 		while (j--)
 		{
 			if (x + j < 0 || y + i < 0 || y + i >= data->map_size
- 				|| x + j >= (int) ft_strlen(data->map[y + i]) || data->map[y + i][x + j] != '1')
+				|| x + j >= (int) ft_strlen(data->map[y + i])
+				|| data->map[y + i][x + j] != '1')
 				continue ;
 			else
 				print_rect(data->minimap, j * MAP_TILE + MAP_TILE,
@@ -75,19 +76,19 @@ static void	add_player(t_data *data)
 	float	y;
 	int		i;
 
-	print_rect(data->minimap, (MAP_TILE * (MAP_SIZE + 1)) / 2,
-		(MAP_TILE * (MAP_SIZE + 1)) / 2,
-		MAP_TILE, MAP_TILE, create_trgb(0, 250, 70, 70));
 	x = (MAP_SIZE + 2) * MAP_TILE / 2;
 	y = x;
-	i = 7;
+	i = 6;
 	while (i--)
 	{
 		x += data->player->dir_x;
 		y += data->player->dir_y;
 		mlx_pixel_put_img(data->minimap, (int) rint(x), (int) rint(y),
-			create_trgb(0, 250, 70, 70));
+			create_trgb(0, 250, 250, 250));
 	}
+	print_rect(data->minimap, (MAP_TILE * (MAP_SIZE + 1)) / 2,
+		(MAP_TILE * (MAP_SIZE + 1)) / 2,
+		MAP_TILE, MAP_TILE, create_trgb(0, 250, 70, 70));
 }
 
 void	update_minimap(t_data *data)
