@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/24 17:54:08 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/25 12:58:58 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,13 +96,17 @@ $(LIBFT_DIR)/libft.a:
 $(MLX_DIR)/libmlx.a:
 	@make -C $(MLX_DIR)
 
+# Phony target to build the libft library and the executable
+all: libft $(NAME)
+
 # Phony target to build the libft library
 libft:
 	@make -C $(LIBFT_DIR)
 
-# Phony target to build the libft library and the executable
-all: libft $(NAME)
-
+# Phony target to build the mlx library
+mlx:
+	@make -C $(MLX_DIR)
+	
 # Phony target to clean the object files
 clean:
 	@echo "$(RED)Deleting objects...$(NO_COLOR)"
@@ -125,4 +129,4 @@ debug: CFLAGS += $(DFLAGS)
 debug: re
 
 # Phony targets for make
-.PHONY: all libft clean fclean re debug
+.PHONY: all libft mlx clean fclean re debug

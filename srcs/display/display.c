@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/24 17:33:11 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 12:30:05 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ int	update(t_data *data)
 	ft_memset(data->screen->addr, 0, WINDOW_WIDTH * WINDOW_HEIGHT * 4);
 	ray = data->ray;
 	player = data->player;
-	// printf("Player position: %f, %f\n", player->pos_x, player->pos_y);
-	// printf("Player direction: %f, %f\n", player->dir_x, player->dir_y);
-	// printf("Player plane: %f, %f\n", player->plane_x, player->plane_y);
-	for (int x = 0; x < WINDOW_WIDTH; x++)
+
+	for (int x = 0; x < WINDOW_WIDTH; x++) // change it with a while loop
 	{
 		//printf("%i\n", x);
 		ray->camera_x = 2 * x / (float)WINDOW_WIDTH - 1;
@@ -117,7 +115,7 @@ int	update(t_data *data)
 			{
 				sideDistX += ray->del_dist_x;
 				ray->map_x += stepX;
-				side = 0;
+				side = 0; //side need to have 4 possible values not 2
 			}
 			else
 			{
@@ -146,18 +144,40 @@ int	update(t_data *data)
       if(drawEnd >= WINDOW_HEIGHT)
 	  	drawEnd = WINDOW_HEIGHT - 1;
 
-	int	color;
-	if (side == 1)
-		color = get_pixel_color(data->north_img, 1, 1);
-	else
-		color = get_pixel_color(data->west_img, 1, 1);
-	print_line(data->screen, x, drawStart, drawEnd, color);
+	// int	color;
+	// if (side == 1)
+	// 	color = get_pixel_color(data->north_img, 1, 1);
+	// else
+	// 	color = get_pixel_color(data->west_img, 1, 1);
+	// print_line(data->screen, x, drawStart, drawEnd, color);
+
+
+	float	wall_x;
+	if (side == 0)
+		wall_x = player->pos_y + perpWallDist * ray->dir_y;
+    else
+		wall_x = player->pos_x + perpWallDist * ray->dir_x;
+    wall_x -= floor((wall_x)); //round to inferior integer
+
+	int tex_x = (int)(wall_x * (float)data->north_img->img_width); //need to remove data->north_img->img_width and put real value
+	if (side == 0 && ray->dir_x > 0)
+		tex_x = data->north_img->img_width - tex_x - 1;
+	if (side == 1 && ray->dir_y < 0)
+		tex_x = data->north_img->img_width - tex_x - 1;
+	
+	float step = 1.0 * data->north_img->img_height / lineHeight;
+	float texPos = (drawStart - WINDOW_HEIGHT / 2 + lineHeight / 2) * step;
+	for (int y = drawStart; y < drawEnd; y++)
+      {
+        int texY = (int)texPos & (data->north_img->img_height - 1);
+		texPos += step;
+		if (tex_x < 0 || texY < 0 || tex_x > data->north_img->img_width || texY > data->north_img->img_height)
+			write(1, "Wrong\n", 6);
+		else
+			mlx_pixel_put_img(data->screen, x, y, get_pixel_color(data->north_img, tex_x, texY));
+	  }
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
-	// static int i= 0;
-	// printf("%i\n", i);
-	// i++;
-	// printf("Printed\n");
 	return (1);
 }
 
