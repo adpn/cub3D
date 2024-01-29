@@ -6,13 +6,13 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 17:20:38 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:56:32 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	check_line(char *line)
+static int	check_line(char *line)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	check_line(char *line)
 	return (0);
 }
 
-int	check_all_lines(char **map)
+static int	check_all_lines(char **map)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ int	check_all_lines(char **map)
 	return (0);
 }
 
-void	assign_dir(char c, t_player *player) //seems logical may need to check
+static void	assign_dir(char c, t_player *player) //seems logical may need to check
 {
 	player->dir_x = 0;
 	player->dir_y = 0;
@@ -55,7 +55,7 @@ void	assign_dir(char c, t_player *player) //seems logical may need to check
 
 }
 
-int	check_player_position(char **map, t_player *player)
+static int	check_player_position(char **map, t_player *player)
 {
 	int	i;
 	int	j;
@@ -89,7 +89,7 @@ int	check_player_position(char **map, t_player *player)
 	return (0);
 }
 
-int	check_map_closed(char **map)
+static int	check_map_closed(char **map)
 {
 	int	i;
 	int	j;
@@ -101,8 +101,10 @@ int	check_map_closed(char **map)
 		while (map[i][j])
 		{
 			if (ft_strchr("NSEWD0", map[i][j])
-				&& ((i == 0 || !ft_strchr("NSEWD01", map[i - 1][j]))
-				|| (!map[i + 1] || !ft_strchr("NSEWD01", map[i + 1][j]))
+				&& ((i == 0 || j > (int) ft_strlen(map[i - 1])
+					|| !ft_strchr("NSEWD01", map[i - 1][j]))
+				|| (!map[i + 1] || j > (int) ft_strlen(map[i + 1])
+					|| !ft_strchr("NSEWD01", map[i + 1][j]))
 				|| (j == 0 || !ft_strchr("NSEWD01", map[i][j - 1]))
 				|| (!map[i][j + 1] || !ft_strchr("NSEWD01", map[i][j + 1]))))
 				return (ft_error("Map is not closed"));
