@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:15 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/29 16:18:10 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 17:52:45 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,16 @@ static void	parse_minimap(t_data *data)
 		while (j--)
 		{
 			if (x + j < 0 || y + i < 0 || y + i >= data->map_size
-				|| x + j >= (int) ft_strlen(data->map[y + i])
-				|| data->map[y + i][x + j] != '1')
+				|| x + j >= (int) ft_strlen(data->map[y + i]))
 				continue ;
-			else
+			if (data->map[y + i][x + j] == '1')
 				print_rect(data->minimap, j * MAP_TILE + MAP_TILE,
 					i * MAP_TILE + MAP_TILE, MAP_TILE, MAP_TILE,
 					create_trgb(0, 150, 150, 150));
+			else if (data->map[y + i][x + j] == 'D')
+				print_rect(data->minimap, j * MAP_TILE + MAP_TILE,
+					i * MAP_TILE + MAP_TILE, MAP_TILE, MAP_TILE,
+					create_trgb(0, 30, 200, 100));
 		}
 	}
 }

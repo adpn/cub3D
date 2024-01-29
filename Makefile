@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/29 16:14:27 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/29 17:52:31 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ libft:
 # Phony target to build the mlx library
 mlx:
 	@make -C $(MLX_DIR)
-	
+
 # Phony target to clean the object files
 clean:
 	@echo "$(RED)Deleting objects...$(NO_COLOR)"
