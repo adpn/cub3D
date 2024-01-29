@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 12:33:37 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 17:22:23 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ typedef struct s_ray //probably need to think about this structure
 	int		map_x;
 	int		map_y;
 
-	// "Real" position of the ray
-	float	pos_x;
-	float	pos_y;
-
 	//Camera is along the plane, and from where the ray starts
 	float	camera_x;
 	float	camera_y;
@@ -71,7 +67,31 @@ typedef struct s_ray //probably need to think about this structure
 	float	del_dist_x;
 	float	del_dist_y;
 
+	float	perp_wall_dist;
+
+	float	side_dist_x;
+	float	side_dist_y;
+
+	int		step_x;
+	int		step_y;
+
+	int		hit; //wall hit
+	int		direction; //side hit
 }		t_ray;
+
+typedef struct s_wall
+{
+	t_img_info	*texture;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	float		wall_x;
+	int			tex_y;
+	int			tex_x;
+	float		tex_pos;
+	float		step;
+}				t_wall;
+
 
 typedef struct	s_input
 {
@@ -102,6 +122,7 @@ typedef struct s_data
 	int			floor_color;
 	t_ray		*ray;
 	t_player	*player;
+	t_wall		*wall;
 	t_img_info	*screen;
 	t_img_info	*minimap;
 	t_input	input;

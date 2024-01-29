@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 17:53:43 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/24 17:53:56 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 17:48:18 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	turn_right(t_data *data)
 	data->player->dir_y = old_dir_x * sinf(ROT_SPEED) + data->player->dir_y * cosf(ROT_SPEED);
 	data->player->plane_x = data->player->plane_x * cos(ROT_SPEED) - data->player->plane_y * sin(ROT_SPEED);
 	data->player->plane_y = old_plane_x * sin(ROT_SPEED) + data->player->plane_y * cos(ROT_SPEED);
-	printf("Turn right\n");
 }
 //Uses the keyboard
 void	turn_left(t_data *data)
@@ -37,7 +36,6 @@ void	turn_left(t_data *data)
 	data->player->dir_y = old_dir_x * sinf(-ROT_SPEED) + data->player->dir_y * cosf(-ROT_SPEED);
 	data->player->plane_x = data->player->plane_x * cos(-ROT_SPEED) - data->player->plane_y * sin(-ROT_SPEED);
 	data->player->plane_y = old_plane_x * sin(-ROT_SPEED) + data->player->plane_y * cos(-ROT_SPEED);
-	printf("Turn left\n");
 }
 //Uses the mouse
 void	look_left(t_data *data, float x)
@@ -52,7 +50,6 @@ void	look_left(t_data *data, float x)
 	data->player->dir_y = old_dir_x * sinf(-ROT_SPEED) + data->player->dir_y * cosf(-ROT_SPEED);
 	data->player->plane_x = data->player->plane_x * cos(-ROT_SPEED) - data->player->plane_y * sin(-ROT_SPEED);
 	data->player->plane_y = old_plane_x * sin(-ROT_SPEED) + data->player->plane_y * cos(-ROT_SPEED);
-	printf("Look left\n");
 }
 
 void	look_right(t_data *data, float x)
@@ -67,5 +64,4 @@ void	look_right(t_data *data, float x)
 	data->player->dir_y = old_dir_x * sinf(ROT_SPEED) + data->player->dir_y * cosf(ROT_SPEED);
 	data->player->plane_x = data->player->plane_x * cos(ROT_SPEED) - data->player->plane_y * sin(ROT_SPEED);
 	data->player->plane_y = old_plane_x * sin(ROT_SPEED) + data->player->plane_y * cos(ROT_SPEED);
-	printf("Look right\n");
 }

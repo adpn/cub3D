@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 12:34:32 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 16:17:30 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int argc, char **argv)
 	t_parser	parser_struct;
 	t_ray		ray;
 	t_player	player;
+	t_wall	wall;
 	int			fd;
 
 	if (argc != 2)
@@ -83,6 +84,7 @@ int	main(int argc, char **argv)
 	data.parser = &parser_struct;
 	data.ray = &ray;
 	data.player = &player;
+	data.wall = &wall;
 	if (parser(&data, fd))
 		return (free_parser(&data), 1);
 	printf_parser(&data);

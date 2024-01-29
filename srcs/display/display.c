@@ -6,28 +6,11 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 12:40:50 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 17:46:52 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "display.h"
-
-void	print_texture(t_data *data) // to remove, was just for testing
-{
-	int color;
-	void	*img;
-
-	img = mlx_new_image(data->mlx_ptr, 64, 64);
-	for (int x = 0; x < 64; x++)
-	{
-		for (int y = 0; y < 64; y++)
-		{
-			color = get_pixel_color(data->east_img, x, y);
-			mlx_pixel_put(data->mlx_ptr, data->mlx_win, x, y, color);
-		}
-	}
-	//mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, img, 0, 0);
-}
 
 int	end(t_data *data)
 {
@@ -49,6 +32,97 @@ int	end(t_data *data)
 	return (1);
 }
 
+void	ray_init(t_ray *ray, t_player *player, int x)
+{
+	ray->camera_x = 2 * x / (float)WINDOW_WIDTH - 1;
+	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;		
+	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
+	ray->map_x = (int)player->pos_x;
+	ray->map_y = (int)player->pos_y;
+	ray->del_dist_x = fabsf(1 / ray->dir_x);
+	ray->del_dist_y = fabsf(1 / ray->dir_y);
+}
+
+void	first_step_calc(t_ray *ray, t_player *player)
+{
+	if (ray->dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_dist_x = (player->pos_x - ray->map_x) * ray->del_dist_x;
+	}
+	else
+	{
+    	ray->step_x = 1;
+      	ray->side_dist_x = (ray->map_x + 1.0 - player->pos_x) * ray->del_dist_x;
+	}
+	if (ray->dir_y < 0)
+	{
+     	ray->step_y = -1;
+      	ray->side_dist_y = (player->pos_y - ray->map_y) * ray->del_dist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+     	ray->side_dist_y = (ray->map_y + 1.0 - player->pos_y) * ray->del_dist_y;
+	}
+}
+
+void	dda(char **map, t_ray *ray, t_player *player)
+{
+	int	hit;
+	
+	hit = 0;
+	while (!hit)
+	{
+		//jump to next map square, either in x-direction, or in y-direction
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->del_dist_x;
+			ray->map_x += ray->step_x;
+			ray->direction = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->del_dist_y;
+			ray->map_y += ray->step_y;
+			ray->direction = 1;
+		}
+		//Check if ray has hit a wall
+		if (map[ray->map_y][ray->map_x] == '1'
+			|| (map[ray->map_y][ray->map_x] == 'D' && (fabs(ray->map_x - player->pos_x) > 3 || fabs(ray->map_y - player->pos_y) > 3)))
+			hit = 1;
+ 	}
+}
+
+void	wall_size_calc(t_ray *ray, t_wall *wall)
+{
+    wall->line_height = (int)(WINDOW_HEIGHT / ray->perp_wall_dist);
+	wall->draw_start = -wall->line_height / 2 + WINDOW_HEIGHT / 2;
+    if (wall->draw_start < 0)
+		wall->draw_start = 0;
+	wall->draw_end = wall->line_height / 2 + WINDOW_HEIGHT / 2;
+    if (wall->draw_end >= WINDOW_HEIGHT)
+		wall->draw_end = WINDOW_HEIGHT - 1;
+}
+
+void	assign_texture(t_data *data, t_ray *ray, t_wall *wall)
+{
+	if (ray->direction == 0)
+	{
+		if (ray->step_x < 0)
+			wall->texture = data->west_img;
+		else
+			wall->texture = data->east_img;
+	}
+	else
+	{
+		if (ray->step_y < 0)
+			wall->texture = data->north_img;
+		else
+			wall->texture = data->south_img;
+	}
+}
+
 int	update(t_data *data)
 {
 	t_player	*player;
@@ -61,116 +135,37 @@ int	update(t_data *data)
 	for (int x = 0; x < WINDOW_WIDTH; x++) // change it with a while loop
 	{
 		//printf("%i\n", x);
-		ray->camera_x = 2 * x / (float)WINDOW_WIDTH - 1;
-		ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
-		ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
+		ray_init(ray, player, x);
+		first_step_calc(ray, player);
+		dda(data->map, ray, player);
 
-		ray->map_x = (int)player->pos_x;
-		ray->map_y = (int)player->pos_y;
-
-		ray->del_dist_x = fabsf(1 / ray->dir_x);
-		ray->del_dist_y = fabsf(1 / ray->dir_y);
-
-		//length of ray from current position to next x or y-side
-		float	perpWallDist; //perpendicular wall??
-		float sideDistX;
-		float sideDistY;
-		int stepX;
-     	int stepY;
-		int hit = 0; //was there a wall hit?
-      	int side; //was a NS or a EW wall hit?
-
-		if (ray->dir_x < 0)
-		{
-			stepX = -1;
-			sideDistX = (player->pos_x - ray->map_x) * ray->del_dist_x;
-		}
+		if (ray->direction == 0)
+			ray->perp_wall_dist = (ray->side_dist_x - ray->del_dist_x);
+      	else
+	  		ray->perp_wall_dist = (ray->side_dist_y - ray->del_dist_y);
+		wall_size_calc(ray, data->wall);
+		if (ray->direction == 0)
+			data->wall->wall_x = player->pos_y + ray->perp_wall_dist * ray->dir_y;
 		else
+			data->wall->wall_x = player->pos_x + ray->perp_wall_dist * ray->dir_x;
+		data->wall->wall_x -= (int)(data->wall->wall_x);
+		assign_texture(data, ray, data->wall);
+		
+		data->wall->tex_x = (int)(data->wall->wall_x * (float)data->wall->texture->img_width); //need to remove data->north_img->img_width and put real value
+		if (ray->direction == 0 && ray->dir_x > 0)
+			data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
+		if (ray->direction == 1 && ray->dir_y < 0)
+			data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
+		
+		data->wall->step = 1.0 * data->wall->texture->img_height / data->wall->line_height;
+		data->wall->tex_pos = (data->wall->draw_start - WINDOW_HEIGHT / 2 + data->wall->line_height / 2) * data->wall->step;
+		for (int y = data->wall->draw_start; y < data->wall->draw_end; y++)
 		{
-        	stepX = 1;
-        	sideDistX = (ray->map_x + 1.0 - player->pos_x) * ray->del_dist_x;
-		}
-		if (ray->dir_y < 0)
-		{
-        	stepY = -1;
-        	sideDistY = (player->pos_y - ray->map_y) * ray->del_dist_y;
-		}
-      	else
-		{
-			stepY = 1;
-        	sideDistY = (ray->map_y + 1.0 - player->pos_y) * ray->del_dist_y;
-		}
-		//perform DDA
-		//printf("DDA BEGIN\n");
-		while (!hit)
-		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += ray->del_dist_x;
-				ray->map_x += stepX;
-				side = 0; //side need to have 4 possible values not 2
-			}
-			else
-			{
-				sideDistY += ray->del_dist_y;
-				ray->map_y += stepY;
-				side = 1;
-			}
-			//Check if ray has hit a wall
-			if (data->map[ray->map_y][ray->map_x] == '1'
-				|| (data->map[ray->map_y][ray->map_x] == 'D' && (fabs(ray->map_x - player->pos_x) > 3 || fabs(ray->map_y - player->pos_y) > 3)))
-				hit = 1;
-    	}
-		//printf("DDA FINISH\n");
-		if (side == 0)
-			perpWallDist = (sideDistX - ray->del_dist_x);
-      	else
-	  		perpWallDist = (sideDistY - ray->del_dist_y);
-
-		//Calculate height of line to draw on screen
-      int lineHeight = (int)(WINDOW_HEIGHT / perpWallDist);
-
-      //calculate lowest and highest pixel to fill in current stripe
-      int drawStart = -lineHeight / 2 + WINDOW_HEIGHT / 2;
-      if(drawStart < 0)
-	  	drawStart = 0;
-      int drawEnd = lineHeight / 2 + WINDOW_HEIGHT / 2;
-      if(drawEnd >= WINDOW_HEIGHT)
-	  	drawEnd = WINDOW_HEIGHT - 1;
-
-	// int	color;
-	// if (side == 1)
-	// 	color = get_pixel_color(data->north_img, 1, 1);
-	// else
-	// 	color = get_pixel_color(data->west_img, 1, 1);
-	// print_line(data->screen, x, drawStart, drawEnd, color);
-
-
-	float	wall_x;
-	if (side == 0)
-		wall_x = player->pos_y + perpWallDist * ray->dir_y;
-    else
-		wall_x = player->pos_x + perpWallDist * ray->dir_x;
-    wall_x -= floor((wall_x)); //round to inferior integer
-
-	int tex_x = (int)(wall_x * (float)data->north_img->img_width); //need to remove data->north_img->img_width and put real value
-	if (side == 0 && ray->dir_x > 0)
-		tex_x = data->north_img->img_width - tex_x - 1;
-	if (side == 1 && ray->dir_y < 0)
-		tex_x = data->north_img->img_width - tex_x - 1;
+			data->wall->tex_y = (int)data->wall->tex_pos & (data->wall->texture->img_height - 1);
+			data->wall->tex_pos += data->wall->step;
+			mlx_pixel_put_img(data->screen, x, y, get_pixel_color(data->wall->texture, data->wall->tex_x, data->wall->tex_y));
 	
-	float step = 1.0 * data->north_img->img_height / lineHeight;
-	float texPos = (drawStart - WINDOW_HEIGHT / 2 + lineHeight / 2) * step;
-	for (int y = drawStart; y < drawEnd; y++)
-      {
-        int texY = (int)texPos & (data->north_img->img_height - 1);
-		texPos += step;
-		if (tex_x < 0 || texY < 0 || tex_x > data->north_img->img_width || texY > data->north_img->img_height)
-			write(1, "Wrong\n", 6);
-		else
-			mlx_pixel_put_img(data->screen, x, y, get_pixel_color(data->north_img, tex_x, texY));
-	  }
+		}
 	}
 // added two minimap fts here
 	update_minimap(data);

@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/29 12:32:15 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/29 16:14:27 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME 			= 	cub3D
 
 # Compiler, compiler flags and linking flags
 CC				= 	cc
-CFLAGS 			= 	-Wall -Wextra -Werror -Iincludes -Ilibft/include -Imlx -g
-DFLAGS      	=   -fsanitize=address
+CFLAGS 			= 	-Wall -Wextra -Werror -Iincludes -Ilibft/include -Imlx
+DFLAGS      	=   -g -fsanitize=address
 MLXFLAGS		=	-framework OpenGL -framework AppKit
 
 # Directories for sources files, object files, and the libft library
