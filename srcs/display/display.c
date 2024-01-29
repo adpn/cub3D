@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 17:46:52 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 17:59:51 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	end(t_data *data)
 void	ray_init(t_ray *ray, t_player *player, int x)
 {
 	ray->camera_x = 2 * x / (float)WINDOW_WIDTH - 1;
-	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;		
+	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
 	ray->map_x = (int)player->pos_x;
 	ray->map_y = (int)player->pos_y;
@@ -70,7 +70,7 @@ void	first_step_calc(t_ray *ray, t_player *player)
 void	dda(char **map, t_ray *ray, t_player *player)
 {
 	int	hit;
-	
+
 	hit = 0;
 	while (!hit)
 	{
@@ -107,7 +107,9 @@ void	wall_size_calc(t_ray *ray, t_wall *wall)
 
 void	assign_texture(t_data *data, t_ray *ray, t_wall *wall)
 {
-	if (ray->direction == 0)
+	if (data->map[ray->map_y][ray->map_x] == 'D')
+		wall->texture = data->door_img;
+	else if (ray->direction == 0)
 	{
 		if (ray->step_x < 0)
 			wall->texture = data->west_img;
@@ -150,13 +152,13 @@ int	update(t_data *data)
 			data->wall->wall_x = player->pos_x + ray->perp_wall_dist * ray->dir_x;
 		data->wall->wall_x -= (int)(data->wall->wall_x);
 		assign_texture(data, ray, data->wall);
-		
+
 		data->wall->tex_x = (int)(data->wall->wall_x * (float)data->wall->texture->img_width); //need to remove data->north_img->img_width and put real value
 		if (ray->direction == 0 && ray->dir_x > 0)
 			data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
 		if (ray->direction == 1 && ray->dir_y < 0)
 			data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
-		
+
 		data->wall->step = 1.0 * data->wall->texture->img_height / data->wall->line_height;
 		data->wall->tex_pos = (data->wall->draw_start - WINDOW_HEIGHT / 2 + data->wall->line_height / 2) * data->wall->step;
 		for (int y = data->wall->draw_start; y < data->wall->draw_end; y++)
@@ -164,7 +166,7 @@ int	update(t_data *data)
 			data->wall->tex_y = (int)data->wall->tex_pos & (data->wall->texture->img_height - 1);
 			data->wall->tex_pos += data->wall->step;
 			mlx_pixel_put_img(data->screen, x, y, get_pixel_color(data->wall->texture, data->wall->tex_x, data->wall->tex_y));
-	
+
 		}
 	}
 // added two minimap fts here
