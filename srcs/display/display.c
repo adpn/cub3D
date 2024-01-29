@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 12:35:35 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 12:40:50 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ int	display(t_data *data)
 		return (free(data->screen), ft_error("Mlx new image failed"));
 	if (generate_minimap(data))
 		return (mlx_destroy_image(data->mlx_ptr, data->screen->img),
-			free(data->screen), free(data->key_pressed), 1);
+			free(data->screen), 1);
 	init_keys(&data->input);
 	img_to_addr(data->screen);
 	data->player->plane_y = data->player->dir_x * 0.66;

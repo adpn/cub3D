@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 12:32:31 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/29 12:43:18 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define RIGHT_CLICK 2
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
-# define WALL_BUFFER 0.5
+# define WALL_BUFFER 0.2
 
 enum e_keys{
 	KEY_W = 13,
