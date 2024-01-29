@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 14:20:36 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:34:32 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	printf_parser(t_data *data)
 {
 	int	i;
 
-	printf("North: %s\n", data->input->north);
-	printf("South: %s\n", data->input->south);
-	printf("East: %s\n", data->input->east);
-	printf("West: %s\n", data->input->west);
-	printf("Door: %s\n", data->input->door);
-	printf("Ceiling: %d %d %d\n", data->input->ceiling_rgb[0],
-		data->input->ceiling_rgb[1], data->input->ceiling_rgb[2]);
-	printf("Floor: %d %d %d\n", data->input->floor_rgb[0],
-		data->input->floor_rgb[1], data->input->floor_rgb[2]);
+	printf("North: %s\n", data->parser->north);
+	printf("South: %s\n", data->parser->south);
+	printf("East: %s\n", data->parser->east);
+	printf("West: %s\n", data->parser->west);
+	printf("Door: %s\n", data->parser->door);
+	printf("Ceiling: %d %d %d\n", data->parser->ceiling_rgb[0],
+		data->parser->ceiling_rgb[1], data->parser->ceiling_rgb[2]);
+	printf("Floor: %d %d %d\n", data->parser->floor_rgb[0],
+		data->parser->floor_rgb[1], data->parser->floor_rgb[2]);
 	printf("Map:\n");
 	i = 0;
 	while (data->map[i])
@@ -48,27 +48,27 @@ void	printf_parser(t_data *data)
 	}
 }
 
-void	free_input(t_data *data)
+void	free_parser(t_data *data)
 {
-	t_input	*input;
+	t_parser	*parser;
 
-	input = data->input;
-	if (input->north)
-		free(input->north);
-	if (input->south)
-		free(input->south);
-	if (input->west)
-		free(input->west);
-	if (input->east)
-		free(input->east);
-	if (input->door)
-		free(input->door);
+	parser = data->parser;
+	if (parser->north)
+		free(parser->north);
+	if (parser->south)
+		free(parser->south);
+	if (parser->west)
+		free(parser->west);
+	if (parser->east)
+		free(parser->east);
+	if (parser->door)
+		free(parser->door);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	t_input		input;
+	t_parser	parser_struct;
 	t_ray		ray;
 	t_player	player;
 	int			fd;
@@ -80,15 +80,15 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Cannot open file"));
-	data.input = &input;
+	data.parser = &parser_struct;
 	data.ray = &ray;
 	data.player = &player;
 	if (parser(&data, fd))
-		return (free_input(&data), 1);
+		return (free_parser(&data), 1);
 	printf_parser(&data);
 	if (setup(&data))
-		return (free_input(&data), clear_map(&data), 1);
-	free_input(&data);
+		return (free_parser(&data), clear_map(&data), 1);
+	free_parser(&data);
 	if (display(&data))
 		return (clear_map(&data), clear_minimap(&data), 1); // probably has to free other stuff
 	mlx_loop(data.mlx_ptr);

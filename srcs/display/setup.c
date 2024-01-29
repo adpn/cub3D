@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 18:12:41 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:38:53 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	setup_textures(t_data *data)
 	int	err;
 
 	err = 0;
-	do_texture(data, data->north_img, data->input->north, &err);
-	do_texture(data, data->south_img, data->input->south, &err);
-	do_texture(data, data->west_img, data->input->west, &err);
-	do_texture(data, data->east_img, data->input->east, &err);
-	do_texture(data, data->door_img, data->input->door, &err);
+	do_texture(data, data->north_img, data->parser->north, &err);
+	do_texture(data, data->south_img, data->parser->south, &err);
+	do_texture(data, data->west_img, data->parser->west, &err);
+	do_texture(data, data->east_img, data->parser->east, &err);
+	do_texture(data, data->door_img, data->parser->door, &err);
 	if (err)
 		return (destroy_textures(data), 1);
 	return (0);

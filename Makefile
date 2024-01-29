@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/24 16:41:32 by bvercaem         ###   ########.fr        #
+#    Updated: 2024/01/29 12:32:15 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ DISPLAY_FILES	=	setup.c \
 					display.c \
 					mlx_helper.c \
 					move.c \
+					input_mgmt.c \
+					turn_look.c \
 					minimap.c
 UTILS_FILES		=	utils.c
 
@@ -95,13 +97,17 @@ $(LIBFT_DIR)/libft.a:
 $(MLX_DIR)/libmlx.a:
 	@make -C $(MLX_DIR)
 
+# Phony target to build the libft library and the executable
+all: libft $(NAME)
+
 # Phony target to build the libft library
 libft:
 	@make -C $(LIBFT_DIR)
 
-# Phony target to build the libft library and the executable
-all: libft $(NAME)
-
+# Phony target to build the mlx library
+mlx:
+	@make -C $(MLX_DIR)
+	
 # Phony target to clean the object files
 clean:
 	@echo "$(RED)Deleting objects...$(NO_COLOR)"
@@ -124,4 +130,4 @@ debug: CFLAGS += $(DFLAGS)
 debug: re
 
 # Phony targets for make
-.PHONY: all libft clean fclean re debug
+.PHONY: all libft mlx clean fclean re debug

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 14:11:05 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:33:37 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_img_info
 	int		endian;
 }	t_img_info;
 
-typedef struct s_input //change with input and add rgb ceiling and floor
+typedef struct s_parser
 {
 	char	*north;
 	char	*south;
@@ -35,7 +35,7 @@ typedef struct s_input //change with input and add rgb ceiling and floor
 	char	*door;
 	int		ceiling_rgb[3];
 	int		floor_rgb[3];
-}				t_input;
+}				t_parser;
 
 typedef struct s_player
 {
@@ -73,7 +73,7 @@ typedef struct s_ray //probably need to think about this structure
 
 }		t_ray;
 
-typedef struct	s_key_pressed
+typedef struct	s_input
 {
 	int		w;
 	int		a;
@@ -81,7 +81,9 @@ typedef struct	s_key_pressed
 	int		d;
 	int		left;
 	int		right;
-}				t_key_pressed;
+	int		mouse_coord[2];
+	int		mouse_locked; // 0 = unlocked, 1 = locked
+}				t_input;
 
 
 typedef struct s_data
@@ -90,7 +92,7 @@ typedef struct s_data
 	void		*mlx_win;
 	char		**map;
 	int			map_size;
-	t_input		*input;
+	t_parser	*parser;
 	t_img_info	*north_img;
 	t_img_info	*south_img;
 	t_img_info	*west_img;
@@ -102,7 +104,7 @@ typedef struct s_data
 	t_player	*player;
 	t_img_info	*screen;
 	t_img_info	*minimap;
-	t_key_pressed	*key_pressed;
+	t_input	input;
 }			t_data;
 
 #endif

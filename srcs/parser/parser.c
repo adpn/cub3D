@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:50:00 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 13:27:55 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:40:08 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ tab = F/220,100,/1/02
 
 void	init_value(t_data *data)
 {
-	data->input->north = NULL;
-	data->input->south = NULL;
-	data->input->west = NULL;
-	data->input->east = NULL;
-	data->input->door = NULL;
-	data->input->ceiling_rgb[0] = -1;
-	data->input->ceiling_rgb[1] = -1;
-	data->input->ceiling_rgb[2] = -1;
-	data->input->floor_rgb[0] = -1;
-	data->input->floor_rgb[1] = -1;
-	data->input->floor_rgb[2] = -1;
+	data->parser->north = NULL;
+	data->parser->south = NULL;
+	data->parser->west = NULL;
+	data->parser->east = NULL;
+	data->parser->door = NULL;
+	data->parser->ceiling_rgb[0] = -1;
+	data->parser->ceiling_rgb[1] = -1;
+	data->parser->ceiling_rgb[2] = -1;
+	data->parser->floor_rgb[0] = -1;
+	data->parser->floor_rgb[1] = -1;
+	data->parser->floor_rgb[2] = -1;
 	data->map = NULL;
 	data->minimap = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 17:42:39 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:32:31 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define ON_KEYUP 3
 # define ON_DESTROY 17
 # define ON_MOUSEMOVE 6
+# define RIGHT_CLICK 2
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
 # define WALL_BUFFER 0.5

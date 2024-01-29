@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/26 14:49:47 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:35:35 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_texture(t_data *data) // to remove, was just for testing
 
 int	end(t_data *data)
 {
-	printf("Quit\n");
+	printf("Bye bye !\n");
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	mlx_destroy_image(data->mlx_ptr, data->screen->img);
 	mlx_destroy_image(data->mlx_ptr, data->north_img->img);
@@ -49,24 +49,6 @@ int	end(t_data *data)
 	return (1);
 }
 
-int	send_change(t_data *data)
-{
-	if (data->key_pressed->w)
-		move_forward(data);
-	if (data->key_pressed->s)
-		move_backward(data);
-	if (data->key_pressed->d)
-		move_right(data);
-	if (data->key_pressed->a)
-		move_left(data);
-	if (data->key_pressed->left)
-		turn_left(data);
-	if (data->key_pressed->right)
-		turn_right(data);
-	update(data);
-	return (0);
-}
-
 int	update(t_data *data)
 {
 	t_player	*player;
@@ -75,10 +57,8 @@ int	update(t_data *data)
 	ft_memset(data->screen->addr, 0, WINDOW_WIDTH * WINDOW_HEIGHT * 4);
 	ray = data->ray;
 	player = data->player;
-	// printf("Player position: %f, %f\n", player->pos_x, player->pos_y);
-	// printf("Player direction: %f, %f\n", player->dir_x, player->dir_y);
-	// printf("Player plane: %f, %f\n", player->plane_x, player->plane_y);
-	for (int x = 0; x < WINDOW_WIDTH; x++)
+
+	for (int x = 0; x < WINDOW_WIDTH; x++) // change it with a while loop
 	{
 		//printf("%i\n", x);
 		ray->camera_x = 2 * x / (float)WINDOW_WIDTH - 1;
@@ -129,7 +109,7 @@ int	update(t_data *data)
 			{
 				sideDistX += ray->del_dist_x;
 				ray->map_x += stepX;
-				side = 0;
+				side = 0; //side need to have 4 possible values not 2
 			}
 			else
 			{
@@ -159,68 +139,47 @@ int	update(t_data *data)
       if(drawEnd >= WINDOW_HEIGHT)
 	  	drawEnd = WINDOW_HEIGHT - 1;
 
-	int	color;
-	if (side == 1)
-		color = get_pixel_color(data->north_img, 1, 1);
-	else
-		color = get_pixel_color(data->west_img, 1, 1);
-	print_line(data->screen, x, drawStart, drawEnd, color);
+	// int	color;
+	// if (side == 1)
+	// 	color = get_pixel_color(data->north_img, 1, 1);
+	// else
+	// 	color = get_pixel_color(data->west_img, 1, 1);
+	// print_line(data->screen, x, drawStart, drawEnd, color);
+
+
+	float	wall_x;
+	if (side == 0)
+		wall_x = player->pos_y + perpWallDist * ray->dir_y;
+    else
+		wall_x = player->pos_x + perpWallDist * ray->dir_x;
+    wall_x -= floor((wall_x)); //round to inferior integer
+
+	int tex_x = (int)(wall_x * (float)data->north_img->img_width); //need to remove data->north_img->img_width and put real value
+	if (side == 0 && ray->dir_x > 0)
+		tex_x = data->north_img->img_width - tex_x - 1;
+	if (side == 1 && ray->dir_y < 0)
+		tex_x = data->north_img->img_width - tex_x - 1;
+	
+	float step = 1.0 * data->north_img->img_height / lineHeight;
+	float texPos = (drawStart - WINDOW_HEIGHT / 2 + lineHeight / 2) * step;
+	for (int y = drawStart; y < drawEnd; y++)
+      {
+        int texY = (int)texPos & (data->north_img->img_height - 1);
+		texPos += step;
+		if (tex_x < 0 || texY < 0 || tex_x > data->north_img->img_width || texY > data->north_img->img_height)
+			write(1, "Wrong\n", 6);
+		else
+			mlx_pixel_put_img(data->screen, x, y, get_pixel_color(data->north_img, tex_x, texY));
+	  }
 	}
 // added two minimap fts here
 	update_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->minimap->img, WINDOW_WIDTH - data->minimap->img_width - 10, 10);
-	// static int i= 0;
-	// printf("%i\n", i);
-	// i++;
-	// printf("Printed\n");
 	return (1);
 }
 
-int	keydown(int keycode, t_data *data)
-{
-	if (keycode == KEY_W)
-		data->key_pressed->w = 1;
-	if (keycode == KEY_A)
-		data->key_pressed->a = 1;
-	if (keycode == KEY_S)
-		data->key_pressed->s = 1;
-	if (keycode == KEY_D)
-		data->key_pressed->d = 1;
-	if (keycode == KEY_LEFT)
-		data->key_pressed->left = 1;
-	if (keycode == KEY_RIGHT)
-		data->key_pressed->right = 1;
-	if (keycode == KEY_ESC)
-		end(data);
-	return (0);
-}
-
-int	keyup(int keycode, t_data *data)
-{
-	if (keycode == KEY_W)
-		data->key_pressed->w = 0;
-	if (keycode == KEY_A)
-		data->key_pressed->a = 0;
-	if (keycode == KEY_S)
-		data->key_pressed->s = 0;
-	if (keycode == KEY_D)
-		data->key_pressed->d = 0;
-	if (keycode == KEY_LEFT)
-		data->key_pressed->left = 0;
-	if (keycode == KEY_RIGHT)
-		data->key_pressed->right = 0;
-	return (0);
-}
-
-int mouse_move(int x, int y, t_data *data)
-{
-	printf("x: %i, y: %i\n", x, y);
-	(void)data;
-	return (0);
-}
-
-void	init_keys(t_key_pressed *keys)
+void	init_keys(t_input *keys)
 {
 	keys->w = 0;
 	keys->a = 0;
@@ -228,6 +187,7 @@ void	init_keys(t_key_pressed *keys)
 	keys->d = 0;
 	keys->left = 0;
 	keys->right = 0;
+	keys->mouse_locked = 1;
 }
 
 int	display(t_data *data)
@@ -235,24 +195,22 @@ int	display(t_data *data)
 	data->screen = malloc(sizeof(t_img_info));
 	if (!data->screen)
 		return (ft_error("Malloc failed"));
-	data->key_pressed = malloc(sizeof(t_key_pressed));
-	if (!data->key_pressed)
-		return (free(data->screen), ft_error("Malloc failed"));
 	data->screen->img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->screen->img)
-		return (free(data->screen), free(data->key_pressed), ft_error("Mlx new image failed"));
+		return (free(data->screen), ft_error("Mlx new image failed"));
 	if (generate_minimap(data))
 		return (mlx_destroy_image(data->mlx_ptr, data->screen->img),
 			free(data->screen), free(data->key_pressed), 1);
-	init_keys(data->key_pressed);
+	init_keys(&data->input);
 	img_to_addr(data->screen);
 	data->player->plane_y = data->player->dir_x * 0.66;
 	data->player->plane_x = -data->player->dir_y * 0.66;
 	mlx_mouse_hide();
-	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data);
+	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data); //need to put all the hook in a function
 	mlx_hook(data->mlx_win, ON_KEYUP, 0, keyup, data);
 	mlx_hook(data->mlx_win, ON_DESTROY, 0, end, data);
 	mlx_hook(data->mlx_win, ON_MOUSEMOVE, 0, mouse_move, data);
+	mlx_mouse_hook(data->mlx_win, mouse_click, data);
 	mlx_loop_hook(data->mlx_ptr, send_change, data);
 	return (0);
 }
