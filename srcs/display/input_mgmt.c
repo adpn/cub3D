@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:51:32 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/24 17:33:15 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 12:01:26 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	keyup(int keycode, t_data *data)
 
 int mouse_move(int x, int y, t_data *data)
 {
-	//printf("x: %i, y: %i\n", x, y);
-	if (!data->input.mouse_locked)
+	if (!data->input.mouse_locked || (x > -MOUSE_BUFFER && x < MOUSE_BUFFER))
 		return (0);
+	printf("x: %i, y: %i\n", x, y);
 	if (x > 0)
-		look_right(data, x);
+		look_right(data->player, x);
 	else
-		look_left(data, abs(x));
+		look_left(data->player, abs(x));
 	(void)y;
 	mlx_mouse_move(data->mlx_win, 0, 0);
 	return (0);
@@ -69,13 +69,13 @@ int	send_change(t_data *data)
 	if (!data->input.mouse_locked)
 		return (0);
 	if (data->input.w)
-		move_forward(data);
+		move_forward(data->player, data->map);
 	if (data->input.s)
-		move_backward(data);
+		move_backward(data->player, data->map);
 	if (data->input.d)
-		move_right(data);
+		move_right(data->player, data->map);
 	if (data->input.a)
-		move_left(data);
+		move_left(data->player, data->map);
 	if (data->input.left)
 		turn_left(data);
 	if (data->input.right)
