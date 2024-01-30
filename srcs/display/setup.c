@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 12:55:30 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:38:25 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,53 @@ void	color_to_rgb(int color, int tgrb[4])
 	tgrb[3] = (color & (0xFF));
 }
 
+void	revert_img(t_img_info *img)
+{
+	int	i;
+	int	j;
+	int tmp;
+
+	j = 0;
+	while (j < img->img_height)
+	{
+		i = 0;
+		while (i < img->img_width / 2)
+		{
+			tmp = get_pixel_color(img, i, j);
+			mlx_pixel_put_img(img, i, j, get_pixel_color(img, img->img_width - 1 - i, j));
+			mlx_pixel_put_img(img, img->img_width - 1 - i, j, tmp);
+			i++;
+		}		
+		j++;
+	}
+}
+
+void	all_img_to_addr(t_data *data)
+{
+	img_to_addr(data->north_img);
+	img_to_addr(data->south_img);
+	img_to_addr(data->west_img);
+	img_to_addr(data->east_img);
+	img_to_addr(data->door_img);
+	img_to_addr(data->torch_img);
+	img_to_addr(data->torch_img + 1);
+	img_to_addr(data->torch_img + 2);
+	img_to_addr(data->torch_img + 3);	
+}
+
+void	revert_all_img(t_data *data)
+{
+	revert_img(data->north_img);
+	revert_img(data->south_img);
+	revert_img(data->west_img);
+	revert_img(data->east_img);
+	revert_img(data->door_img);
+	revert_img(data->torch_img);
+	revert_img(data->torch_img + 1);
+	revert_img(data->torch_img + 2);
+	revert_img(data->torch_img + 3);
+}
+
 int	setup(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
@@ -134,15 +181,8 @@ int	setup(t_data *data)
 		return (free_img(data), ft_error("Malloc failed"));
 	if (setup_textures(data))
 		return (free_img(data), ft_error("Can't load one of the textures"));
-	img_to_addr(data->north_img);
-	img_to_addr(data->south_img);
-	img_to_addr(data->west_img);
-	img_to_addr(data->east_img);
-	img_to_addr(data->door_img);
-	img_to_addr(data->torch_img);
-	img_to_addr(data->torch_img + 1);
-	img_to_addr(data->torch_img + 2);
-	img_to_addr(data->torch_img + 3);
+	all_img_to_addr(data);
+	revert_all_img(data);
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
 	if (!data->mlx_win)
 		return (destroy_textures(data), free_img(data), ft_error("Mlx window init failed"));
