@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 12:55:30 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:33:54 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	destroy_textures(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, (data->torch_img + 2)->img);
 	if ((data->torch_img + 3)->img)
 		mlx_destroy_image(data->mlx_ptr, (data->torch_img + 3)->img);
+	if (data->gun_img->img)
+		mlx_destroy_image(data->mlx_ptr, data->gun_img->img);
+	if ((data->gun_img + 1)->img)
+		mlx_destroy_image(data->mlx_ptr, (data->gun_img + 1)->img);
 }
 
 static void	do_texture(t_data *data, t_img_info *img, char *input, int *err)
@@ -58,7 +62,8 @@ int	setup_textures(t_data *data)
 	do_texture(data, data->torch_img + 1, "textures/doom_torch_2.xpm", &err);
 	do_texture(data, data->torch_img + 2, "textures/doom_torch_3.xpm", &err);
 	do_texture(data, data->torch_img + 3, "textures/doom_torch_4.xpm", &err);
-	(data->torch_img + 4)->img = NULL;
+	do_texture(data, data->gun_img, "textures/wolf_gun_idle.xpm", &err);
+	do_texture(data, data->gun_img + 1, "textures/wolf_gun_shoot.xpm", &err);
 	if (err)
 		return (destroy_textures(data), 1);
 	return (0);
@@ -84,6 +89,8 @@ void	free_img(t_data *data)
 		free(data->door_img);
 	if (data->torch_img)
 		free(data->torch_img);
+	if (data->gun_img)
+		free(data->gun_img);
 }
 
 static void	do_malloc_img(t_img_info **img, int size, int *err)
@@ -106,7 +113,8 @@ int	malloc_img(t_data *data)
 	do_malloc_img(&data->west_img, 1, &err);
 	do_malloc_img(&data->east_img, 1, &err);
 	do_malloc_img(&data->door_img, 1, &err);
-	do_malloc_img(&data->torch_img, 5, &err);
+	do_malloc_img(&data->torch_img, 4, &err);
+	do_malloc_img(&data->gun_img, 2, &err);
 	if (err)
 		return (1);
 	return (0);
@@ -143,6 +151,8 @@ int	setup(t_data *data)
 	img_to_addr(data->torch_img + 1);
 	img_to_addr(data->torch_img + 2);
 	img_to_addr(data->torch_img + 3);
+	img_to_addr(data->gun_img);
+	img_to_addr(data->gun_img + 1);
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
 	if (!data->mlx_win)
 		return (destroy_textures(data), free_img(data), ft_error("Mlx window init failed"));

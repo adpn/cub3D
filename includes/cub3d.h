@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 11:54:18 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:17:52 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 // MAP_SIZE should always be odd (so the player can be centered)
 # define MAP_SIZE 15
-# define MAP_TILE 5
+# define M_TI 5
 
 # define ON_KEYDOWN 2
 # define ON_KEYUP 3

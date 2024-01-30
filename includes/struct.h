@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 12:05:05 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:23:41 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_data
 	t_img_info	*east_img;
 	t_img_info	*door_img;
 	t_img_info	*torch_img;
+	t_img_info	*gun_img;
 	int			ceiling_color;
 	int			floor_color;
 	t_ray		*ray;

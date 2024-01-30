@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:15 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/29 17:52:45 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:18:32 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@ int	generate_minimap(t_data *data)
 	data->minimap = malloc(sizeof(t_img_info));
 	if (!data->minimap)
 		return (ft_error("Malloc failed"));
-	data->minimap->img = mlx_new_image(data->mlx_ptr, MAP_TILE * (MAP_SIZE + 2),
-			MAP_TILE * (MAP_SIZE + 2));
+	data->minimap->img = mlx_new_image(data->mlx_ptr, M_TI * (MAP_SIZE + 2),
+			M_TI * (MAP_SIZE + 2));
 	if (!data->minimap->img)
 		return (free(data->minimap), ft_error("Mlx new image failed"));
-	data->minimap->img_width = MAP_TILE * (MAP_SIZE + 2);
-	data->minimap->img_height = MAP_TILE * (MAP_SIZE + 2);
+	data->minimap->img_width = M_TI * (MAP_SIZE + 2);
+	data->minimap->img_height = M_TI * (MAP_SIZE + 2);
 	img_to_addr(data->minimap);
 	if (!data->minimap)
 		return (mlx_destroy_image(data->mlx_ptr, data->minimap->img),
 			free(data->minimap), ft_error("Mlx get address failed"));
-	print_rect(data->minimap, 0, 0, MAP_TILE, MAP_TILE * (MAP_SIZE + 2),
+	print_rect(data->minimap, 0, 0, M_TI, M_TI * (MAP_SIZE + 2),
 		create_trgb(0, 250, 250, 250));
-	print_rect(data->minimap, MAP_TILE * (MAP_SIZE + 1), 0, MAP_TILE,
-		MAP_TILE * (MAP_SIZE + 2), create_trgb(0, 250, 250, 250));
-	print_rect(data->minimap, MAP_TILE, 0, MAP_SIZE * MAP_TILE, MAP_TILE,
+	print_rect(data->minimap, M_TI * (MAP_SIZE + 1), 0, M_TI,
+		M_TI * (MAP_SIZE + 2), create_trgb(0, 250, 250, 250));
+	print_rect(data->minimap, M_TI, 0, MAP_SIZE * M_TI, M_TI,
 		create_trgb(0, 250, 250, 250));
-	print_rect(data->minimap, MAP_TILE, MAP_TILE * (MAP_SIZE + 1),
-		MAP_SIZE * MAP_TILE, MAP_TILE, create_trgb(0, 250, 250, 250));
+	print_rect(data->minimap, M_TI, M_TI * (MAP_SIZE + 1),
+		MAP_SIZE * M_TI, M_TI, create_trgb(0, 250, 250, 250));
 	return (0);
 }
 
@@ -66,13 +66,11 @@ static void	parse_minimap(t_data *data)
 				|| x + j >= (int) ft_strlen(data->map[y + i]))
 				continue ;
 			if (data->map[y + i][x + j] == '1')
-				print_rect(data->minimap, j * MAP_TILE + MAP_TILE,
-					i * MAP_TILE + MAP_TILE, MAP_TILE, MAP_TILE,
-					create_trgb(0, 150, 150, 150));
+				print_rect(data->minimap, j * M_TI + M_TI,
+					i * M_TI + M_TI, M_TI, M_TI, create_trgb(0, 150, 150, 150));
 			else if (data->map[y + i][x + j] == 'D')
-				print_rect(data->minimap, j * MAP_TILE + MAP_TILE,
-					i * MAP_TILE + MAP_TILE, MAP_TILE, MAP_TILE,
-					create_trgb(0, 30, 200, 100));
+				print_rect(data->minimap, j * M_TI + M_TI,
+					i * M_TI + M_TI, M_TI, M_TI, create_trgb(0, 30, 200, 100));
 		}
 	}
 }
@@ -83,9 +81,9 @@ static void	add_player(t_data *data)
 	float	y;
 	int		i;
 
-	x = (MAP_SIZE + 2) * MAP_TILE / 2;
+	x = (MAP_SIZE + 2) * M_TI / 2;
 	y = x;
-	i = 6;
+	i = M_TI;
 	while (i--)
 	{
 		x += data->player->dir_x;
@@ -93,15 +91,15 @@ static void	add_player(t_data *data)
 		mlx_pixel_put_img(data->minimap, (int) rint(x), (int) rint(y),
 			create_trgb(0, 250, 250, 250));
 	}
-	print_rect(data->minimap, (MAP_TILE * (MAP_SIZE + 1)) / 2,
-		(MAP_TILE * (MAP_SIZE + 1)) / 2,
-		MAP_TILE, MAP_TILE, create_trgb(0, 250, 70, 70));
+	print_rect(data->minimap, (M_TI * (MAP_SIZE + 1)) / 2,
+		(M_TI * (MAP_SIZE + 1)) / 2,
+		M_TI, M_TI, create_trgb(0, 250, 70, 70));
 }
 
 void	update_minimap(t_data *data)
 {
-	print_rect(data->minimap, MAP_TILE, MAP_TILE, MAP_SIZE * MAP_TILE,
-		MAP_SIZE * MAP_TILE, 0);
+	print_rect(data->minimap, M_TI, M_TI, MAP_SIZE * M_TI,
+		MAP_SIZE * M_TI, 0);
 	parse_minimap(data);
 	add_player(data);
 }

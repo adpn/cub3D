@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 14:57:03 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:47:39 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,45 @@ int	end(t_data *data)
 void	draw_column(t_data *data, t_wall *wall, int x)
 {
 	int	y;
-	
-	print_line(data->screen, x, 0, wall->draw_start, data->ceiling_color);
+
 	y = wall->draw_start;
 	while (y < wall->draw_end)
 	{
-		wall->tex_y = (int)wall->tex_pos & (wall->texture->img_height - 1);
+		wall->tex_y = (int)wall->tex_pos;// & (wall->texture->img_height - 1);
 		wall->tex_pos += wall->step;
 		mlx_pixel_put_img(data->screen, x, y, get_pixel_color(wall->texture,
 			wall->tex_x, wall->tex_y));
 		y++;
 	}
-	print_line(data->screen, x, wall->draw_end, WINDOW_HEIGHT, data->floor_color);
+}
+
+static void	calc_and_draw_column(t_data *data, int x)
+{
+	t_ray	*ray;
+
+	ray = data->ray;
+	data->wall->tex_x = (int)(data->wall->wall_x * (float)data->wall->texture->img_width); //need to remove data->north_img->img_width and put real value
+	if (ray->direction == 0 && ray->dir_x > 0)
+		data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
+	if (ray->direction == 1 && ray->dir_y < 0)
+		data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
+	data->wall->step = 1.0 * data->wall->texture->img_height / data->wall->line_height;
+	data->wall->tex_pos = (data->wall->draw_start - WINDOW_HEIGHT / 2 + data->wall->line_height / 2) * data->wall->step;
+	draw_column(data, data->wall, x);
 }
 
 int	update(t_data *data)
 {
-	t_player	*player;
-	t_ray		*ray;
+	static unsigned int	anim = 0;
+	static unsigned	int	count = 0;
+	t_player			*player;
+	t_ray				*ray;
 
 	ray = data->ray;
 	player = data->player;
-
+	count++;
+	if (!(count % 10))
+		anim++;
 	for (int x = 0; x < WINDOW_WIDTH; x++) // change it with a while loop
 	{
 		//printf("%i\n", x);
@@ -69,6 +86,8 @@ int	update(t_data *data)
       	else
 	  		ray->perp_wall_dist = (ray->side_dist_y - ray->del_dist_y);
 		wall_size_calc(ray, data->wall);
+		print_line(data->screen, x, 0, data->wall->draw_start, data->ceiling_color);
+		print_line(data->screen, x, data->wall->draw_end, WINDOW_HEIGHT, data->floor_color);
 		if (ray->direction == 0)
 			data->wall->wall_x = player->pos_y + ray->perp_wall_dist * ray->dir_y;
 		else
@@ -76,20 +95,18 @@ int	update(t_data *data)
 		data->wall->wall_x -= (int)(data->wall->wall_x);
 		assign_texture(data, ray, data->wall);
 
-		data->wall->tex_x = (int)(data->wall->wall_x * (float)data->wall->texture->img_width); //need to remove data->north_img->img_width and put real value
-		if (ray->direction == 0 && ray->dir_x > 0)
-			data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
-		if (ray->direction == 1 && ray->dir_y < 0)
-			data->wall->tex_x = data->wall->texture->img_width - data->wall->tex_x - 1;
+		calc_and_draw_column(data, x);
 
-		data->wall->step = 1.0 * data->wall->texture->img_height / data->wall->line_height;
-		data->wall->tex_pos = (data->wall->draw_start - WINDOW_HEIGHT / 2 + data->wall->line_height / 2) * data->wall->step;
-		draw_column(data, data->wall, x);
+		if (data->wall->texture != data->door_img && !(ray->map_y % 3) && !(ray->map_x % 2))
+		{
+			data->wall->texture = data->torch_img + anim % 4;
+			calc_and_draw_column(data, x);
+		}
 	}
-// added two minimap fts here
 	update_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->minimap->img, WINDOW_WIDTH - data->minimap->img_width - 10, 10);
+	// put hands
 	return (1);
 }
 
