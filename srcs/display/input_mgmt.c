@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_mgmt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:51:32 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 17:33:14 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:55:25 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	keydown(int keycode, t_data *data)
 		data->input.left = 1;
 	if (keycode == KEY_RIGHT)
 		data->input.right = 1;
+	if (keycode == KEY_SPACE)
+		data->input.space = 1;
 	if (keycode == KEY_ESC)
 		end(data);
 	return (0);
@@ -47,6 +49,8 @@ int	keyup(int keycode, t_data *data)
 		data->input.left = 0;
 	if (keycode == KEY_RIGHT)
 		data->input.right = 0;
+	if (keycode == KEY_SPACE)
+		data->input.space = 0;
 	return (0);
 }
 
@@ -100,6 +104,5 @@ int mouse_click(int button, int x, int y, t_data *data)
 	}
 	(void)x;
 	(void)y;
-	(void)data;
 	return (0);
 }

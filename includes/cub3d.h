@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 18:17:52 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:53:14 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@
 # define ON_DESTROY 17
 # define ON_MOUSEMOVE 6
 # define RIGHT_CLICK 2
+# define LEFT_CLICK 1
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
 # define WALL_BUFFER 0.2
 # define MOUSE_BUFFER 5
+
 enum e_keys{
 	KEY_W = 13,
 	KEY_A = 0,
@@ -47,6 +49,7 @@ enum e_keys{
 	KEY_D = 2,
 	KEY_LEFT = 123,
 	KEY_RIGHT = 124,
+	KEY_SPACE = 49,
 	KEY_ESC = 53
 };
 

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 18:23:41 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:54:22 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct	s_input
 	int		d;
 	int		left;
 	int		right;
+	int		space;
 	int		mouse_coord[2];
 	int		mouse_locked; // 0 = unlocked, 1 = locked
 }				t_input;

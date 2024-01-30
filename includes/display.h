@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:29 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 12:07:54 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:28:35 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,16 @@ int		generate_minimap(t_data *data);
 int		get_pixel_color(t_img_info *img, int x, int y);
 int		create_trgb(int t, int r, int g, int b);
 void	mlx_pixel_put_img(t_img_info *img, int x, int y, int color);
+void	mlx_true_pixel_put_img(t_img_info *img, int x, int y, int color);
+void	mlx_img_put_img(t_img_info *src, t_img_info *dest, int x, int y);
 void	print_line(t_img_info *img, int x, int start, int end, int color);
 void	print_rect(t_img_info *img, int x, int y, int width, int height, int color);
 void	img_to_addr(t_img_info *img);
 int		update(t_data *data);
 void	update_minimap(t_data *data);
+
+void	destroy_textures(t_data *data);
+void	free_img(t_data *data);
 
 /* move.c */
 void	move_forward(t_player *player, char **map);

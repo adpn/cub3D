@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 18:55:28 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:20:48 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ void	revert_img(t_img_info *img)
 		while (i < img->img_width / 2)
 		{
 			tmp = get_pixel_color(img, i, j);
-			mlx_pixel_put_img(img, i, j, get_pixel_color(img, img->img_width - 1 - i, j));
-			mlx_pixel_put_img(img, img->img_width - 1 - i, j, tmp);
+			mlx_true_pixel_put_img(img, i, j, get_pixel_color(img, img->img_width - 1 - i, j));
+			mlx_true_pixel_put_img(img, img->img_width - 1 - i, j, tmp);
 			i++;
 		}
 		j++;

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 18:47:39 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:59:44 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,9 @@ int	end(t_data *data)
 	printf("Bye bye !\n");
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	mlx_destroy_image(data->mlx_ptr, data->screen->img);
-	mlx_destroy_image(data->mlx_ptr, data->north_img->img);
-	mlx_destroy_image(data->mlx_ptr, data->west_img->img);
-	mlx_destroy_image(data->mlx_ptr, data->south_img->img);
-	mlx_destroy_image(data->mlx_ptr, data->east_img->img);
+	destroy_textures(data);
 	free(data->screen);
-	free(data->north_img);
-	free(data->west_img);
-	free(data->south_img);
-	free(data->east_img);
+	free_img(data);
 	clear_map(data);
 	clear_minimap(data);
 	exit(0);
@@ -104,9 +98,12 @@ int	update(t_data *data)
 		}
 	}
 	update_minimap(data);
+	if (!data->input.space)
+		mlx_img_put_img(data->gun_img, data->screen, WINDOW_WIDTH / 2 - data->gun_img->img_width / 2, WINDOW_HEIGHT - data->gun_img->img_height);
+	else
+		mlx_img_put_img(data->gun_img + 1, data->screen, WINDOW_WIDTH / 2 - ((data->gun_img + 1))->img_width / 2, WINDOW_HEIGHT - (data->gun_img + 1)->img_height);
+	mlx_img_put_img(data->minimap, data->screen, WINDOW_WIDTH - data->minimap->img_width - 10, 10);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->minimap->img, WINDOW_WIDTH - data->minimap->img_width - 10, 10);
-	// put hands
 	return (1);
 }
 
@@ -129,6 +126,8 @@ int	display(t_data *data)
 	data->screen->img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->screen->img)
 		return (free(data->screen), ft_error("Mlx new image failed"));
+	data->screen->img_height = WINDOW_HEIGHT;
+	data->screen->img_width = WINDOW_WIDTH;
 	if (generate_minimap(data))
 		return (mlx_destroy_image(data->mlx_ptr, data->screen->img),
 			free(data->screen), 1);
