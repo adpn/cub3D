@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 15:58:49 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:55:30 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "display.h"
 
-//i = 4 -> destroy all textures, otherwise destroy until the ith texture
 void	destroy_textures(t_data *data)
 {
 	if (data->north_img->img)
@@ -144,7 +143,9 @@ int	setup(t_data *data)
 	img_to_addr(data->torch_img + 1);
 	img_to_addr(data->torch_img + 2);
 	img_to_addr(data->torch_img + 3);
-	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D"); //may need to protect and change size
-
+	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D");
+	if (!data->mlx_win)
+		return (destroy_textures(data), free_img(data), ft_error("Mlx window init failed"));
+	//need to check if protection is good
 	return (0);
 }

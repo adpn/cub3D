@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 17:52:37 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 12:05:05 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct s_ray //probably need to think about this structure
 	int		step_x;
 	int		step_y;
 
-	int		hit; //wall hit
 	int		direction; //side hit
 }		t_ray;
 

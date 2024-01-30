@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:51:32 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 12:01:26 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 12:08:23 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int	send_change(t_data *data)
 	if (data->input.a)
 		move_left(data->player, data->map);
 	if (data->input.left)
-		turn_left(data);
+		turn_left(data->player);
 	if (data->input.right)
-		turn_right(data);
+		turn_right(data->player);
 	update(data);
 	return (0);
 }

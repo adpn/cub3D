@@ -6,7 +6,7 @@
 #    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/29 17:52:31 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/30 12:04:20 by adupin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ DISPLAY_FILES	=	setup.c \
 					move.c \
 					input_mgmt.c \
 					turn_look.c \
-					minimap.c
+					minimap.c \
+					raycasting.c
 UTILS_FILES		=	utils.c
 
 # Defining the paths of the sources files
