@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:51:32 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 12:08:23 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:33:14 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int mouse_move(int x, int y, t_data *data)
 {
 	if (!data->input.mouse_locked || (x > -MOUSE_BUFFER && x < MOUSE_BUFFER))
 		return (0);
-	printf("x: %i, y: %i\n", x, y);
 	if (x > 0)
 		look_right(data->player, x);
 	else
@@ -98,9 +97,9 @@ int mouse_click(int button, int x, int y, t_data *data)
 			data->input.mouse_locked = 1;
 			mlx_mouse_hide();
 		}
-		printf("Right click\n");
 	}
-	printf("Click x: %i, y: %i\n", x, y);
+	(void)x;
+	(void)y;
 	(void)data;
 	return (0);
 }
