@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 13:16:15 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/30 14:57:03 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,28 @@ int	end(t_data *data)
 	return (1);
 }
 
+void	draw_column(t_data *data, t_wall *wall, int x)
+{
+	int	y;
+	
+	print_line(data->screen, x, 0, wall->draw_start, data->ceiling_color);
+	y = wall->draw_start;
+	while (y < wall->draw_end)
+	{
+		wall->tex_y = (int)wall->tex_pos & (wall->texture->img_height - 1);
+		wall->tex_pos += wall->step;
+		mlx_pixel_put_img(data->screen, x, y, get_pixel_color(wall->texture,
+			wall->tex_x, wall->tex_y));
+		y++;
+	}
+	print_line(data->screen, x, wall->draw_end, WINDOW_HEIGHT, data->floor_color);
+}
+
 int	update(t_data *data)
 {
 	t_player	*player;
 	t_ray		*ray;
 
-	print_rect(data->screen, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT / 2, data->ceiling_color);
-	print_rect(data->screen, 0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, WINDOW_HEIGHT / 2, data->floor_color);
 	ray = data->ray;
 	player = data->player;
 
@@ -69,13 +84,7 @@ int	update(t_data *data)
 
 		data->wall->step = 1.0 * data->wall->texture->img_height / data->wall->line_height;
 		data->wall->tex_pos = (data->wall->draw_start - WINDOW_HEIGHT / 2 + data->wall->line_height / 2) * data->wall->step;
-		for (int y = data->wall->draw_start; y < data->wall->draw_end; y++)
-		{
-			data->wall->tex_y = (int)data->wall->tex_pos & (data->wall->texture->img_height - 1);
-			data->wall->tex_pos += data->wall->step;
-			mlx_pixel_put_img(data->screen, x, y, get_pixel_color(data->wall->texture, data->wall->tex_x, data->wall->tex_y));
-
-		}
+		draw_column(data, data->wall, x);
 	}
 // added two minimap fts here
 	update_minimap(data);
