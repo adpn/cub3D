@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adupin <adupin@student.s19.be>             +#+  +:+       +#+         #
+#    By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/30 12:04:20 by adupin           ###   ########.fr        #
+#    Updated: 2024/01/31 14:33:37 by bvercaem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,11 @@ PARSER_FILES	=	cat_all_in_one.c \
 					extract_map.c \
 					check_map.c
 DISPLAY_FILES	=	setup.c \
+					images.c \
+					textures.c \
 					display.c \
 					mlx_helper.c \
+					color.c \
 					move.c \
 					input_mgmt.c \
 					turn_look.c \

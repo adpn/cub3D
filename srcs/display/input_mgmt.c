@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:51:32 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 12:33:09 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:41:36 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	keyup(int keycode, t_data *data)
 	return (0);
 }
 
-int mouse_move(int x, int y, t_data *data)
+int	mouse_move(int x, int y, t_data *data)
 {
 	if (!data->input.mouse_locked || (x > -MOUSE_BUFFER && x < MOUSE_BUFFER))
 		return (0);
@@ -91,7 +91,7 @@ int	send_change(t_data *data)
 	return (0);
 }
 
-int mouse_click(int button, int x, int y, t_data *data)
+int	mouse_click(int button, int x, int y, t_data *data)
 {
 	if (button == RIGHT_CLICK)
 	{

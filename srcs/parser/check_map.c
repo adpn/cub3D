@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 14:56:32 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:45:57 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	assign_dir(char c, t_player *player) //seems logical may need to che
 		player->dir_x = -1;
 	else if (c == 'E')
 		player->dir_x = 1;
-
 }
 
 static int	check_player_position(char **map, t_player *player)
@@ -70,14 +69,14 @@ static int	check_player_position(char **map, t_player *player)
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'W' || map[i][j] == 'E')
-				{
-					//probably need to change the structure of the function
-					player->pos_x = j + 0.5;
-					player->pos_y = i + 0.5;
-					assign_dir(map[i][j], player);
-					map[i][j] = '0';
-					nb_player++;
-				}
+			{
+				//probably need to change the structure of the function
+				player->pos_x = j + 0.5;
+				player->pos_y = i + 0.5;
+				assign_dir(map[i][j], player);
+				map[i][j] = '0';
+				nb_player++;
+			}
 			j++;
 			if (nb_player > 1)
 				return (ft_error("Too many players in the map"));

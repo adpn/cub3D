@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 16:17:30 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/31 15:48:14 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,27 @@ int	ft_error(char *str)
 	return (1);
 }
 
-void	printf_parser(t_data *data)
-{
-	int	i;
+// static void	printf_parser(t_data *data)
+// {
+// 	int	i;
 
-	printf("North: %s\n", data->parser->north);
-	printf("South: %s\n", data->parser->south);
-	printf("East: %s\n", data->parser->east);
-	printf("West: %s\n", data->parser->west);
-	printf("Door: %s\n", data->parser->door);
-	printf("Ceiling: %d %d %d\n", data->parser->ceiling_rgb[0],
-		data->parser->ceiling_rgb[1], data->parser->ceiling_rgb[2]);
-	printf("Floor: %d %d %d\n", data->parser->floor_rgb[0],
-		data->parser->floor_rgb[1], data->parser->floor_rgb[2]);
-	printf("Map:\n");
-	i = 0;
-	while (data->map[i])
-	{
-		printf("%s\n", data->map[i]);
-		i++;
-	}
-}
+// 	printf("North: %s\n", data->parser->north);
+// 	printf("South: %s\n", data->parser->south);
+// 	printf("East: %s\n", data->parser->east);
+// 	printf("West: %s\n", data->parser->west);
+// 	printf("Door: %s\n", data->parser->door);
+// 	printf("Ceiling: %d %d %d\n", data->parser->ceiling_rgb[0],
+// 		data->parser->ceiling_rgb[1], data->parser->ceiling_rgb[2]);
+// 	printf("Floor: %d %d %d\n", data->parser->floor_rgb[0],
+// 		data->parser->floor_rgb[1], data->parser->floor_rgb[2]);
+// 	printf("Map:\n");
+// 	i = 0;
+// 	while (data->map[i])
+// 	{
+// 		printf("%s\n", data->map[i]);
+// 		i++;
+// 	}
+// }
 
 void	free_parser(t_data *data)
 {
@@ -87,7 +87,6 @@ int	main(int argc, char **argv)
 	data.wall = &wall;
 	if (parser(&data, fd))
 		return (free_parser(&data), 1);
-	printf_parser(&data);
 	if (setup(&data))
 		return (free_parser(&data), clear_map(&data), 1);
 	free_parser(&data);

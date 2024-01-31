@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:38:34 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/25 15:26:32 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:51:17 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,9 @@ static int	add_line_to_map(t_data *data, char *line)
 	if (!new_tab)
 		return (ft_error("Malloc failed"));
 	tab = data->map;
-	i = 0;
-	while (i < nb_lines)
-	{
+	i = -1;
+	while (++i < nb_lines)
 		new_tab[i] = tab[i];
-		i++;
-	}
 	if (ft_strchr(line, '\n'))
 		ft_strchr(line, '\n')[0] = '\0';
 	new_tab[i] = line;

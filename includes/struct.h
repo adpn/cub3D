@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 12:31:32 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:44:00 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ typedef struct s_wall
 	float		step;
 }				t_wall;
 
-
-typedef struct	s_input
+typedef struct s_input
 {
 	int		w;
 	int		a;
@@ -105,7 +104,6 @@ typedef struct	s_input
 	int		mouse_coord[2];
 	int		mouse_locked; // 0 = unlocked, 1 = locked
 }				t_input;
-
 
 typedef struct s_data
 {
@@ -128,7 +126,7 @@ typedef struct s_data
 	t_wall		*wall;
 	t_img_info	*screen;
 	t_img_info	*minimap;
-	t_input	input;
+	t_input		input;
 }			t_data;
 
 #endif

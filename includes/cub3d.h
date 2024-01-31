@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 12:31:47 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:48:06 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <mlx.h>
 # include "struct.h"
 
-# define WINDOW_WIDTH 640
-# define WINDOW_HEIGHT 480
+# define WIN_WIDTH 640
+# define WIN_HEIGHT 480
 
 // MAP_SIZE should always be odd (so the player can be centered)
 # define MAP_SIZE 15
@@ -39,7 +39,7 @@
 # define LEFT_CLICK 1
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
-# define WALL_BUFFER 0.2
+# define WALL_ZONE 0.2
 # define MOUSE_BUFFER 5
 
 enum e_keys{
@@ -56,7 +56,6 @@ enum e_keys{
 
 int		ft_error(char *str);
 int		parser(t_data *data, int fd);
-void	printf_parser(t_data *data);
 void	clear_map(t_data *data);
 void	clear_minimap(t_data *data);
 int		setup(t_data *data);

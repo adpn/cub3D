@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:29 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 19:28:35 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:42:42 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "cub3d.h"
 
 int		generate_minimap(t_data *data);
-
 int		get_pixel_color(t_img_info *img, int x, int y);
 int		create_trgb(int t, int r, int g, int b);
 void	mlx_pixel_put_img(t_img_info *img, int x, int y, int color);
@@ -24,12 +23,15 @@ void	mlx_true_pixel_put_img(t_img_info *img, int x, int y, int color);
 void	mlx_img_put_img(t_img_info *src, t_img_info *dest, int x, int y);
 void	print_line(t_img_info *img, int x, int start, int end, int color);
 void	print_rect(t_img_info *img, int x, int y, int width, int height, int color);
-void	img_to_addr(t_img_info *img);
 int		update(t_data *data);
 void	update_minimap(t_data *data);
 
+int		setup_textures(t_data *data);
 void	destroy_textures(t_data *data);
+int		malloc_img(t_data *data);
 void	free_img(t_data *data);
+void	revert_all_img(t_data *data);
+void	img_to_addr(t_img_info *img);
 
 /* move.c */
 void	move_forward(t_player *player, char **map);
@@ -51,11 +53,11 @@ void	wall_size_calc(t_ray *ray, t_wall *wall);
 void	assign_texture(t_data *data, t_ray *ray, t_wall *wall);
 
 /* input_mgmt.c */
-int	keydown(int keycode, t_data *data);
-int	keyup(int keycode, t_data *data);
-int mouse_move(int x, int y, t_data *data);
-int	send_change(t_data *data);
-int mouse_click(int button, int x, int y, t_data *data);
+int		keydown(int keycode, t_data *data);
+int		keyup(int keycode, t_data *data);
+int		mouse_move(int x, int y, t_data *data);
+int		send_change(t_data *data);
+int		mouse_click(int button, int x, int y, t_data *data);
 
-int	end(t_data *data);
+int		end(t_data *data);
 #endif
