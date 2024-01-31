@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:26:34 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 19:44:11 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:35:13 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	mlx_img_put_img(t_img_info *src, t_img_info *dest, int x, int y)
 	int	i;
 	int	j;
 
+	if (!src || !dest)
+		return ;
 	j = 0;
 	while (j < src->img_height)
 	{

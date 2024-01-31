@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:51:32 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 19:55:25 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:33:09 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int	keydown(int keycode, t_data *data)
 		data->input.left = 1;
 	if (keycode == KEY_RIGHT)
 		data->input.right = 1;
-	if (keycode == KEY_SPACE)
+	if (keycode == KEY_SPACE && !data->input.space)
 		data->input.space = 1;
+	if (keycode == KEY_R && !data->input.r)
+		data->input.r = 1;
 	if (keycode == KEY_ESC)
 		end(data);
 	return (0);
@@ -51,6 +53,8 @@ int	keyup(int keycode, t_data *data)
 		data->input.right = 0;
 	if (keycode == KEY_SPACE)
 		data->input.space = 0;
+	if (keycode == KEY_R)
+		data->input.r = 0;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 19:59:44 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:45:44 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,39 @@ static void	calc_and_draw_column(t_data *data, int x)
 	draw_column(data, data->wall, x);
 }
 
+static void	gun_hands(t_data *data)
+{
+	t_img_info	*img;
+	static int	timer = 0;
+	static int	bullets = 8;
+
+	img = data->gun_img;
+	if (data->input.space == 1 && bullets && timer < 3)
+	{
+		bullets--;
+		timer = 3;
+		data->input.space = 2;
+	}
+	if (data->input.r == 1)
+	{
+		bullets = 8;
+		timer = 30;
+		data->input.r = 2;
+	}
+	if (timer)
+	{
+		img = NULL;
+		timer--;
+		if (timer == 3)
+			timer = 0;
+		else if (timer < 3)
+			img = (data->gun_img + 1);
+	}
+	if (img)
+		mlx_img_put_img(img, data->screen, WINDOW_WIDTH / 2 - img->img_width / 2,
+			WINDOW_HEIGHT - img->img_height);
+}
+
 int	update(t_data *data)
 {
 	static unsigned int	anim = 0;
@@ -97,11 +130,8 @@ int	update(t_data *data)
 			calc_and_draw_column(data, x);
 		}
 	}
+	gun_hands(data);
 	update_minimap(data);
-	if (!data->input.space)
-		mlx_img_put_img(data->gun_img, data->screen, WINDOW_WIDTH / 2 - data->gun_img->img_width / 2, WINDOW_HEIGHT - data->gun_img->img_height);
-	else
-		mlx_img_put_img(data->gun_img + 1, data->screen, WINDOW_WIDTH / 2 - ((data->gun_img + 1))->img_width / 2, WINDOW_HEIGHT - (data->gun_img + 1)->img_height);
 	mlx_img_put_img(data->minimap, data->screen, WINDOW_WIDTH - data->minimap->img_width - 10, 10);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->screen->img, 0, 0);
 	return (1);
@@ -113,8 +143,10 @@ void	init_keys(t_input *keys)
 	keys->a = 0;
 	keys->s = 0;
 	keys->d = 0;
+	keys->r = 0;
 	keys->left = 0;
 	keys->right = 0;
+	keys->space = 0;
 	keys->mouse_locked = 1;
 }
 

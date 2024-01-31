@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/30 19:54:22 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:31:32 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_input
 	int		a;
 	int		s;
 	int		d;
+	int		r;
 	int		left;
 	int		right;
 	int		space;
