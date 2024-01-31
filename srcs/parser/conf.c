@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conf.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 13:39:50 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/29 12:39:51 by adupin           ###   ########.fr       */
+/*   Updated: 2024/01/31 16:02:06 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ static int	which_value(t_data *data, char **tab)
 
 	len = ft_strlen(tab[0]);
 	if (!ft_strncmp("NO", tab[0], len))
-		return (assign_wall(&data->parser->north, tab));
+		return (assign_wall(&data->parser.north, tab));
 	else if (!ft_strncmp("SO", tab[0], len))
-		return (assign_wall(&data->parser->south, tab));
+		return (assign_wall(&data->parser.south, tab));
 	else if (!ft_strncmp("EA", tab[0], len))
-		return (assign_wall(&data->parser->east, tab));
+		return (assign_wall(&data->parser.east, tab));
 	else if (!ft_strncmp("WE", tab[0], len))
-		return (assign_wall(&data->parser->west, tab));
+		return (assign_wall(&data->parser.west, tab));
 	else if (!ft_strncmp("D", tab[0], len))
-		return (assign_wall(&data->parser->door, tab));
+		return (assign_wall(&data->parser.door, tab));
 	else if (!ft_strncmp("F", tab[0], len))
-		return (assign_color(data->parser->floor_rgb, tab));
+		return (assign_color(data->parser.floor_rgb, tab));
 	else if (!ft_strncmp("C", tab[0], len))
-		return (assign_color(data->parser->ceiling_rgb, tab));
+		return (assign_color(data->parser.ceiling_rgb, tab));
 	else
 		return (ft_error("Wrong or missing element"));
 }
@@ -83,10 +83,10 @@ int	get_configuration(t_data *data, int fd)
 				return (free(line), 1);
 		}
 		free(line);
-		if (data->parser->north && data->parser->south && data->parser->east
-			&& data->parser->west && data->parser->door
-			&& data->parser->ceiling_rgb[0] != -1
-			&& data->parser->floor_rgb[0] != -1)
+		if (data->parser.north && data->parser.south && data->parser.east
+			&& data->parser.west && data->parser.door
+			&& data->parser.ceiling_rgb[0] != -1
+			&& data->parser.floor_rgb[0] != -1)
 			return (0);
 	}
 	return (0);

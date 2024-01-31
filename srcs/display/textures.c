@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:21:11 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/31 14:21:39 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:02:06 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	setup_textures(t_data *data)
 	int	err;
 
 	err = 0;
-	do_texture(data, data->north_img, data->parser->north, &err);
-	do_texture(data, data->south_img, data->parser->south, &err);
-	do_texture(data, data->west_img, data->parser->west, &err);
-	do_texture(data, data->east_img, data->parser->east, &err);
-	do_texture(data, data->door_img, data->parser->door, &err);
+	do_texture(data, data->north_img, data->parser.north, &err);
+	do_texture(data, data->south_img, data->parser.south, &err);
+	do_texture(data, data->west_img, data->parser.west, &err);
+	do_texture(data, data->east_img, data->parser.east, &err);
+	do_texture(data, data->door_img, data->parser.door, &err);
 	do_texture(data, data->torch_img, "textures/doom_torch_1.xpm", &err);
 	do_texture(data, data->torch_img + 1, "textures/doom_torch_2.xpm", &err);
 	do_texture(data, data->torch_img + 2, "textures/doom_torch_3.xpm", &err);

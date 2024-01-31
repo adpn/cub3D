@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 15:44:00 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:08:03 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_data
 	void		*mlx_win;
 	char		**map;
 	int			map_size;
-	t_parser	*parser;
+	t_parser	parser;
 	t_img_info	*north_img;
 	t_img_info	*south_img;
 	t_img_info	*west_img;
@@ -121,9 +121,9 @@ typedef struct s_data
 	t_img_info	*gun_img;
 	int			ceiling_color;
 	int			floor_color;
-	t_ray		*ray;
-	t_player	*player;
-	t_wall		*wall;
+	t_ray		ray;
+	t_player	player;
+	t_wall		wall;
 	t_img_info	*screen;
 	t_img_info	*minimap;
 	t_input		input;

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 15:45:57 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:06:25 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	check_map(t_data *data)
 {
 	if (check_all_lines(data->map))
 		return (1);
-	if (check_player_position(data->map, data->player))
+	if (check_player_position(data->map, &data->player))
 		return (1);
 	if (check_map_closed(data->map))
 		return (1);

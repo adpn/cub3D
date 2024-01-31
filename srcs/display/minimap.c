@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:15 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/30 18:18:32 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:05:56 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	parse_minimap(t_data *data)
 	int	x;
 	int	y;
 
-	x = (int) data->player->pos_x - ((MAP_SIZE - 1) / 2);
-	y = (int) data->player->pos_y - ((MAP_SIZE - 1) / 2);
+	x = (int) data->player.pos_x - ((MAP_SIZE - 1) / 2);
+	y = (int) data->player.pos_y - ((MAP_SIZE - 1) / 2);
 	i = MAP_SIZE;
 	while (i--)
 	{
@@ -86,8 +86,8 @@ static void	add_player(t_data *data)
 	i = M_TI;
 	while (i--)
 	{
-		x += data->player->dir_x;
-		y += data->player->dir_y;
+		x += data->player.dir_x;
+		y += data->player.dir_y;
 		mlx_pixel_put_img(data->minimap, (int) rint(x), (int) rint(y),
 			create_trgb(0, 250, 250, 250));
 	}

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 14:29:43 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:08:27 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ static void	calc_and_draw_column(t_data *data, int x)
 {
 	t_wall	*wall;
 
-	wall = data->wall;
+	wall = &data->wall;
 	wall->tex_x = (int)(wall->wall_x * (float)wall->texture->img_width);
-	if (data->ray->direction == 0 && data->ray->dir_x > 0)
+	if (data->ray.direction == 0 && data->ray.dir_x > 0)
 		wall->tex_x = wall->texture->img_width - wall->tex_x - 1;
-	if (data->ray->direction == 1 && data->ray->dir_y < 0)
+	if (data->ray.direction == 1 && data->ray.dir_y < 0)
 		wall->tex_x = wall->texture->img_width - wall->tex_x - 1;
 	wall->step = 1.0 * wall->texture->img_height / wall->line_height;
 	wall->tex_pos = wall->step
@@ -99,8 +99,8 @@ int	update(t_data *data)
 	t_player			*player;
 	t_ray				*ray;
 
-	ray = data->ray;
-	player = data->player;
+	ray = &data->ray;
+	player = &data->player;
 	count++;
 	if (!(count % 10))
 		anim++;
@@ -114,19 +114,19 @@ int	update(t_data *data)
 			ray->perp_wall_dist = (ray->side_dist_x - ray->del_dist_x);
       	else
 	  		ray->perp_wall_dist = (ray->side_dist_y - ray->del_dist_y);
-		wall_size_calc(ray, data->wall);
-		print_line(data->screen, x, 0, data->wall->draw_start, data->ceiling_color);
-		print_line(data->screen, x, data->wall->draw_end, WIN_HEIGHT, data->floor_color);
+		wall_size_calc(ray, &data->wall);
+		print_line(data->screen, x, 0, data->wall.draw_start, data->ceiling_color);
+		print_line(data->screen, x, data->wall.draw_end, WIN_HEIGHT, data->floor_color);
 		if (ray->direction == 0)
-			data->wall->wall_x = player->pos_y + ray->perp_wall_dist * ray->dir_y;
+			data->wall.wall_x = player->pos_y + ray->perp_wall_dist * ray->dir_y;
 		else
-			data->wall->wall_x = player->pos_x + ray->perp_wall_dist * ray->dir_x;
-		data->wall->wall_x -= (int)(data->wall->wall_x);
-		assign_texture(data, ray, data->wall);
+			data->wall.wall_x = player->pos_x + ray->perp_wall_dist * ray->dir_x;
+		data->wall.wall_x -= (int)(data->wall.wall_x);
+		assign_texture(data, ray, &data->wall);
 		calc_and_draw_column(data, x);
-		if (data->wall->texture != data->door_img && !(ray->map_y % 3) && !(ray->map_x % 2))
+		if (data->wall.texture != data->door_img && !(ray->map_y % 3) && !(ray->map_x % 2))
 		{
-			data->wall->texture = data->torch_img + anim % 4;
+			data->wall.texture = data->torch_img + anim % 4;
 			calc_and_draw_column(data, x);
 		}
 		x++;
@@ -149,10 +149,10 @@ static void	init_keys_colors(t_data *data)
 	data->input.right = 0;
 	data->input.space = 0;
 	data->input.mouse_locked = 1;
-	data->ceiling_color = create_trgb(0, data->parser->ceiling_rgb[0],
-			data->parser->ceiling_rgb[1], data->parser->ceiling_rgb[2]);
-	data->floor_color = create_trgb(0, data->parser->floor_rgb[0],
-			data->parser->floor_rgb[1], data->parser->floor_rgb[2]);
+	data->ceiling_color = create_trgb(0, data->parser.ceiling_rgb[0],
+			data->parser.ceiling_rgb[1], data->parser.ceiling_rgb[2]);
+	data->floor_color = create_trgb(0, data->parser.floor_rgb[0],
+			data->parser.floor_rgb[1], data->parser.floor_rgb[2]);
 }
 
 int	display(t_data *data)
@@ -170,8 +170,8 @@ int	display(t_data *data)
 			free(data->screen), 1);
 	init_keys_colors(data);
 	img_to_addr(data->screen);
-	data->player->plane_y = data->player->dir_x * 0.66;
-	data->player->plane_x = -data->player->dir_y * 0.66;
+	data->player.plane_y = data->player.dir_x * 0.66;
+	data->player.plane_x = -data->player.dir_y * 0.66;
 	mlx_mouse_hide();
 	mlx_hook(data->mlx_win, ON_KEYDOWN, 0, keydown, data); //need to put all the hook in a function
 	mlx_hook(data->mlx_win, ON_KEYUP, 0, keyup, data);

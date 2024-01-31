@@ -6,13 +6,13 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 15:48:14 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:10:17 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_extension(char *filename)
+static int	check_extension(char *filename)
 {
 	if (ft_strnstr(&filename[ft_strlen(filename) - 4], ".cub", 4) != NULL)
 		return (1);
@@ -30,15 +30,15 @@ int	ft_error(char *str)
 // {
 // 	int	i;
 
-// 	printf("North: %s\n", data->parser->north);
-// 	printf("South: %s\n", data->parser->south);
-// 	printf("East: %s\n", data->parser->east);
-// 	printf("West: %s\n", data->parser->west);
-// 	printf("Door: %s\n", data->parser->door);
-// 	printf("Ceiling: %d %d %d\n", data->parser->ceiling_rgb[0],
-// 		data->parser->ceiling_rgb[1], data->parser->ceiling_rgb[2]);
-// 	printf("Floor: %d %d %d\n", data->parser->floor_rgb[0],
-// 		data->parser->floor_rgb[1], data->parser->floor_rgb[2]);
+// 	printf("North: %s\n", data->parser.north);
+// 	printf("South: %s\n", data->parser.south);
+// 	printf("East: %s\n", data->parser.east);
+// 	printf("West: %s\n", data->parser.west);
+// 	printf("Door: %s\n", data->parser.door);
+// 	printf("Ceiling: %d %d %d\n", data->parser.ceiling_rgb[0],
+// 		data->parser.ceiling_rgb[1], data->parser.ceiling_rgb[2]);
+// 	printf("Floor: %d %d %d\n", data->parser.floor_rgb[0],
+// 		data->parser.floor_rgb[1], data->parser.floor_rgb[2]);
 // 	printf("Map:\n");
 // 	i = 0;
 // 	while (data->map[i])
@@ -48,11 +48,11 @@ int	ft_error(char *str)
 // 	}
 // }
 
-void	free_parser(t_data *data)
+static void	free_parser(t_data *data)
 {
 	t_parser	*parser;
 
-	parser = data->parser;
+	parser = &data->parser;
 	if (parser->north)
 		free(parser->north);
 	if (parser->south)
@@ -68,10 +68,6 @@ void	free_parser(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	t_parser	parser_struct;
-	t_ray		ray;
-	t_player	player;
-	t_wall	wall;
 	int			fd;
 
 	if (argc != 2)
@@ -81,10 +77,6 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Cannot open file"));
-	data.parser = &parser_struct;
-	data.ray = &ray;
-	data.player = &player;
-	data.wall = &wall;
 	if (parser(&data, fd))
 		return (free_parser(&data), 1);
 	if (setup(&data))
