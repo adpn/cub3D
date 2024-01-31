@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 16:10:17 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:31:20 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,26 @@ int	main(int argc, char **argv)
 		return (free_parser(&data), clear_map(&data), 1);
 	free_parser(&data);
 	if (display(&data))
-		return (clear_map(&data), clear_minimap(&data), 1); // probably has to free other stuff
+		return (clear_map(&data), destroy_textures(&data), free_img(&data),
+			mlx_destroy_window(data.mlx_ptr, data.mlx_win), 1);
 	mlx_loop(data.mlx_ptr);
-	printf("All good\n");
+	printf("Wtf mlx_loop() returned?!\n");
 	return (0);
 }
+
+/*	MEMORY:
+(doesn't include things used in just one function (e.g. 'clean_line' in 'assign_color'))
+
+[thing]			[location]			[allocation(main)]	[how to free]			[no leaks]
+
+parser strs		data->parser.*		parser()			free_parser()				1
+map				data->map			parser()			clear_map()					1
+imgs(7)			data->*				setup()				free_img()					1
+textures		data->*				setup()				destroy_textures()			1
+window			data->mlx_win		setup()				mlx_destroy_window()		1
+screen			data->screen		display()			free()						1
+screen_img		data->screen->img	display()			mlx_destroy_image()			1
+minimap			data->minimap		display()			clear_minimap()				1
+minimap_img		data->minimap->img	display()			clear_minimap()				1
+
+i think it's all good maybe hypothetically! */

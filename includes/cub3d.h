@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 15:48:06 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:08:59 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 // MAP_SIZE should always be odd (so the player can be centered)
 # define MAP_SIZE 15
 # define M_TI 5
+
+# define C_BLACK 0
+# define C_WHITE 16448250
 
 # define ON_KEYDOWN 2
 # define ON_KEYUP 3
@@ -59,5 +62,7 @@ int		parser(t_data *data, int fd);
 void	clear_map(t_data *data);
 void	clear_minimap(t_data *data);
 int		setup(t_data *data);
+void	destroy_textures(t_data *data);
+void	free_img(t_data *data);
 int		display(t_data *data);
 #endif

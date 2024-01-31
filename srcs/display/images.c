@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:18:13 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/31 14:20:32 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:51:58 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ int	malloc_img(t_data *data)
 	do_malloc_img(&data->torch_img, 4, &err);
 	do_malloc_img(&data->gun_img, 2, &err);
 	if (err)
-		return (1);
+		return (free_img(data), 1);
 	return (0);
 }

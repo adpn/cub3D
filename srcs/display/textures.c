@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:21:11 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/31 16:02:06 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:58:41 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,13 @@ static void	do_texture(t_data *data, t_img_info *img, char *input, int *err)
 	img->img = mlx_xpm_file_to_image(data->mlx_ptr, input,
 			&img->img_width, &img->img_height);
 	if (!img->img)
+	{
 		*err = 1;
+		printf("Error\nCan't load the texture '%s'\n", input);
+	}
 }
 
+// prints its own error
 int	setup_textures(t_data *data)
 {
 	int	err;

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:29 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 15:42:42 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:08:55 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int		update(t_data *data);
 void	update_minimap(t_data *data);
 
 int		setup_textures(t_data *data);
-void	destroy_textures(t_data *data);
 int		malloc_img(t_data *data);
-void	free_img(t_data *data);
 void	revert_all_img(t_data *data);
 void	img_to_addr(t_img_info *img);
 

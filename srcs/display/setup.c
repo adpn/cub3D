@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 14:56:03 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:02:24 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	setup(t_data *data)
 	if (!data->mlx_ptr)
 		return (ft_error("Mlx init failed"));
 	if (malloc_img(data))
-		return (free_img(data), ft_error("Malloc failed"));
+		return (ft_error("Malloc failed"));
 	if (setup_textures(data))
-		return (free_img(data), ft_error("Can't load one of the textures"));
+		return (free_img(data), 1);
 	all_img_to_addr(data);
 	revert_all_img(data);
 	data->mlx_win = mlx_new_window(data->mlx_ptr,
@@ -50,5 +50,6 @@ int	setup(t_data *data)
 		return (destroy_textures(data), free_img(data),
 			ft_error("Mlx window init failed"));
 	//need to check if protection is good
+		// looks good to me ^^
 	return (0);
 }
