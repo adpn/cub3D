@@ -6,7 +6,7 @@
 #    By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/01/31 14:33:37 by bvercaem         ###   ########.fr        #
+#    Updated: 2024/02/01 13:58:52 by bvercaem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,15 @@ DISPLAY_FILES	=	setup.c \
 					images.c \
 					textures.c \
 					display.c \
+					single_raycast.c \
+					raycasting.c \
 					mlx_helper.c \
 					color.c \
 					move.c \
 					input_mgmt.c \
+					weapon_actions.c \
 					turn_look.c \
-					minimap.c \
-					raycasting.c
+					minimap.c
 UTILS_FILES		=	utils.c
 
 # Defining the paths of the sources files

@@ -6,35 +6,27 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 16:06:25 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 14:25:09 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static int	check_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (!ft_strchr("01NSEWD \t\r", line[i]))
-			return (ft_error("Invalid character in the map"));
-		i++;
-	}
-	return (0);
-}
-
 static int	check_all_lines(char **map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
 	{
-		if (check_line(map[i]))
-			return (1);
+		j = 0;
+		while (map[i][j])
+		{
+			if (!ft_strchr("01NSEWD \t\r", map[i][j]))
+				return (ft_error("Invalid character in the map"));
+			j++;
+		}
 		i++;
 	}
 	return (0);
@@ -58,33 +50,28 @@ static int	check_player_position(char **map, t_player *player)
 {
 	int	i;
 	int	j;
-	int	nb_player;
 
-	i = 0;
-	nb_player = 0;
-	while (map[i])
+	i = -1;
+	player->pos_x = 0;
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S'
-				|| map[i][j] == 'W' || map[i][j] == 'E')
+			if (ft_strchr("NESW", map[i][j]))
 			{
+				if (player->pos_x)
+					return (ft_error("More than one player on the map"));
 				//probably need to change the structure of the function
 				player->pos_x = j + 0.5;
 				player->pos_y = i + 0.5;
 				assign_dir(map[i][j], player);
 				map[i][j] = '0';
-				nb_player++;
 			}
-			j++;
-			if (nb_player > 1)
-				return (ft_error("Too many players in the map"));
 		}
-		i++;
 	}
-	if (nb_player == 0)
-		return (ft_error("No player in the map"));
+	if (!player->pos_x)
+		return (ft_error("No player on the map"));
 	return (0);
 }
 

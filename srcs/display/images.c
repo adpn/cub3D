@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:18:13 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/31 17:51:58 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 15:43:27 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	revert_all_img(t_data *data)
 	revert_img(data->torch_img + 1);
 	revert_img(data->torch_img + 2);
 	revert_img(data->torch_img + 3);
-	revert_img(data->gun_img);
-	revert_img(data->gun_img + 1);
 }
 
 void	free_img(t_data *data)

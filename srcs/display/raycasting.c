@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:04:07 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 15:02:01 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:01:22 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	dda(char **map, t_ray *ray, t_player *player)
 		}
 		if (map[ray->map_y][ray->map_x] == '1'
 			|| (map[ray->map_y][ray->map_x] == 'D'
-				&& (fabs(ray->map_x - player->pos_x) > 2
-					|| fabs(ray->map_y - player->pos_y) > 2)))
+				&& (fabsf(ray->map_x + 0.5f - player->pos_x) > 2
+					|| fabsf(ray->map_y + 0.5f - player->pos_y) > 2)))
 			hit = 1;
 	}
 }
