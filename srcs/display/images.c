@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:18:13 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/02/01 15:43:27 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:17:08 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	free_img(t_data *data)
 		free(data->east_img);
 	if (data->door_img)
 		free(data->door_img);
+	if (data->target_img)
+		free(data->target_img);
 	if (data->torch_img)
 		free(data->torch_img);
 	if (data->gun_img)
@@ -85,6 +87,7 @@ int	malloc_img(t_data *data)
 	do_malloc_img(&data->west_img, 1, &err);
 	do_malloc_img(&data->east_img, 1, &err);
 	do_malloc_img(&data->door_img, 1, &err);
+	do_malloc_img(&data->target_img, 1, &err);
 	do_malloc_img(&data->torch_img, 4, &err);
 	do_malloc_img(&data->gun_img, 2, &err);
 	if (err)

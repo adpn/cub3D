@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:21:11 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/01/31 17:58:41 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:18:26 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	destroy_textures(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->east_img->img);
 	if (data->door_img->img)
 		mlx_destroy_image(data->mlx_ptr, data->door_img->img);
+	if (data->target_img->img)
+		mlx_destroy_image(data->mlx_ptr, data->target_img->img);
 	if (data->torch_img->img)
 		mlx_destroy_image(data->mlx_ptr, data->torch_img->img);
 	if ((data->torch_img + 1)->img)
@@ -63,6 +65,7 @@ int	setup_textures(t_data *data)
 	do_texture(data, data->west_img, data->parser.west, &err);
 	do_texture(data, data->east_img, data->parser.east, &err);
 	do_texture(data, data->door_img, data->parser.door, &err);
+	do_texture(data, data->target_img, "textures/iron_cross.xpm", &err);
 	do_texture(data, data->torch_img, "textures/doom_torch_1.xpm", &err);
 	do_texture(data, data->torch_img + 1, "textures/doom_torch_2.xpm", &err);
 	do_texture(data, data->torch_img + 2, "textures/doom_torch_3.xpm", &err);

@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 14:25:09 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:22:47 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_all_lines(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!ft_strchr("01NSEWD \t\r", map[i][j]))
+			if (!ft_strchr("01NSEWDT \t\r", map[i][j]))
 				return (ft_error("Invalid character in the map"));
 			j++;
 		}
@@ -88,11 +88,11 @@ static int	check_map_closed(char **map)
 		{
 			if (ft_strchr("NSEWD0", map[i][j])
 				&& ((i == 0 || j > (int) ft_strlen(map[i - 1])
-					|| !ft_strchr("NSEWD01", map[i - 1][j]))
+					|| !ft_strchr("NSEWD01T", map[i - 1][j]))
 				|| (!map[i + 1] || j > (int) ft_strlen(map[i + 1])
-					|| !ft_strchr("NSEWD01", map[i + 1][j]))
-				|| (j == 0 || !ft_strchr("NSEWD01", map[i][j - 1]))
-				|| (!map[i][j + 1] || !ft_strchr("NSEWD01", map[i][j + 1]))))
+					|| !ft_strchr("NSEWD01T", map[i + 1][j]))
+				|| (j == 0 || !ft_strchr("NSEWD01T", map[i][j - 1]))
+				|| (!map[i][j + 1] || !ft_strchr("NSEWD01T", map[i][j + 1]))))
 				return (ft_error("Map is not closed"));
 			j++;
 		}

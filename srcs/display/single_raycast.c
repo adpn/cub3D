@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:57:05 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/02/01 13:59:39 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:21:01 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ static void	calc_and_draw_column(t_data *data, int x)
 
 static void	raycast_wall_extra(t_data *data, t_ray *ray, int x, int anim)
 {
-	if (data->wall.texture != data->door_img
+	data->wall.texture = NULL;
+	if (data->map[ray->map_y][ray->map_x] == 'T')
+		data->wall.texture = data->target_img;
+	else if (data->map[ray->map_y][ray->map_x] == '1'
 		&& !(ray->map_y % 3) && !(ray->map_x % 2))
-	{
 		data->wall.texture = data->torch_img + anim % 4;
+	if (data->wall.texture)
 		calc_and_draw_column(data, x);
-	}
 }
 
 void	raycast_for_x(t_data *data, t_player *player, int x, unsigned int anim)

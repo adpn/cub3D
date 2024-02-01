@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:04:07 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 16:01:22 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:58:40 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ void	first_step_calc(t_ray *ray, t_player *player)
 // checks where 'ray' hits by jumping map squares and checking the map
 void	dda(char **map, t_ray *ray, t_player *player)
 {
-	int	hit;
+	char	c;
 
-	hit = 0;
-	while (!hit)
+	while (1)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -67,11 +66,11 @@ void	dda(char **map, t_ray *ray, t_player *player)
 			ray->map_y += ray->step_y;
 			ray->direction = 1;
 		}
-		if (map[ray->map_y][ray->map_x] == '1'
-			|| (map[ray->map_y][ray->map_x] == 'D'
-				&& (fabsf(ray->map_x + 0.5f - player->pos_x) > 2
+		c = map[ray->map_y][ray->map_x];
+		if (c == '1' || c == 'T'
+			|| (c == 'D' && (fabsf(ray->map_x + 0.5f - player->pos_x) > 2
 					|| fabsf(ray->map_y + 0.5f - player->pos_y) > 2)))
-			hit = 1;
+			return ;
 	}
 }
 

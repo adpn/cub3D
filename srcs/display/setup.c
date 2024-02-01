@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 18:02:24 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:18:51 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	all_img_to_addr(t_data *data)
 	img_to_addr(data->west_img);
 	img_to_addr(data->east_img);
 	img_to_addr(data->door_img);
+	img_to_addr(data->target_img);
 	img_to_addr(data->torch_img);
 	img_to_addr(data->torch_img + 1);
 	img_to_addr(data->torch_img + 2);

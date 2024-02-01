@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 16:08:03 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:16:39 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_data
 	t_img_info	*west_img;
 	t_img_info	*east_img;
 	t_img_info	*door_img;
+	t_img_info	*target_img;
 	t_img_info	*torch_img;
 	t_img_info	*gun_img;
 	int			ceiling_color;
