@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:57:05 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/02/01 18:21:01 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:16:00 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	raycast_wall_extra(t_data *data, t_ray *ray, int x, int anim)
 void	raycast_for_x(t_data *data, t_player *player, int x, unsigned int anim)
 {
 	t_ray	*ray;
+	int		x_y[2];
 
 	ray = &data->ray;
 	ray_init(ray, player, x);
@@ -69,9 +70,10 @@ void	raycast_for_x(t_data *data, t_player *player, int x, unsigned int anim)
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->del_dist_y);
 	wall_size_calc(ray, &data->wall);
-	print_line(data->screen, x, 0, data->wall.draw_start, data->ceiling_color);
-	print_line(data->screen, x, data->wall.draw_end,
-		WIN_HEIGHT, data->floor_color);
+	fill_print_array(x_y, NULL, x, 0);
+	print_line(data->screen, x_y, data->wall.draw_start, data->ceiling_color);
+	x_y[1] = data->wall.draw_end;
+	print_line(data->screen, x_y, WIN_HEIGHT, data->floor_color);
 	if (ray->direction == 0)
 		data->wall.wall_x = player->pos_y + ray->perp_wall_dist * ray->dir_y;
 	else

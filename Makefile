@@ -6,7 +6,7 @@
 #    By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/02/01 13:58:52 by bvercaem         ###   ########.fr        #
+#    Updated: 2024/02/02 13:46:44 by bvercaem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ DISPLAY_FILES	=	setup.c \
 					single_raycast.c \
 					raycasting.c \
 					mlx_helper.c \
+					put_shapes_img.c \
 					color.c \
 					move.c \
 					input_mgmt.c \

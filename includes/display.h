@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:29 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 17:07:25 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:26:20 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ int		create_trgb(int t, int r, int g, int b);
 void	mlx_pixel_put_img(t_img_info *img, int x, int y, int color);
 void	mlx_true_pixel_put_img(t_img_info *img, int x, int y, int color);
 void	mlx_img_put_img(t_img_info *src, t_img_info *dest, int x, int y);
-void	print_line(t_img_info *img, int x, int start, int end, int color);
-void	print_rect(t_img_info *img, int x, int y, int width, int height, int color);
+
+/* put_shapes_img.c */
+int		*fill_print_array(int *a, int *b, int arg1, int arg2);
+void	print_line(t_img_info *img, int *x_y, int y_end, int color);
+void	print_rect(t_img_info *img, int *x_y_width_height, int color);
 
 /* setup.c & textures.c & images.c */
 void	img_to_addr(t_img_info *img);

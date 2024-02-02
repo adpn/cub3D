@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:15 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/02/01 18:42:57 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:23:20 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	clear_minimap(t_data *data)
 
 int	generate_minimap(t_data *data)
 {
+	int	x_y_w_h[4];
+
 	data->minimap = malloc(sizeof(t_img_info));
 	if (!data->minimap)
 		return (ft_error("Malloc failed"));
@@ -35,12 +37,16 @@ int	generate_minimap(t_data *data)
 	img_to_addr(data->minimap);
 	if (!data->minimap)
 		return (clear_minimap(data), ft_error("Mlx get address failed"));
-	print_rect(data->minimap, 0, 0, M_TI, M_TI * (MAP_SIZE + 2), C_WHITE);
-	print_rect(data->minimap, M_TI * (MAP_SIZE + 1), 0, M_TI,
-		M_TI * (MAP_SIZE + 2), C_WHITE);
-	print_rect(data->minimap, M_TI, 0, MAP_SIZE * M_TI, M_TI, C_WHITE);
-	print_rect(data->minimap, M_TI, M_TI * (MAP_SIZE + 1),
-		MAP_SIZE * M_TI, M_TI, C_WHITE);
+	fill_print_array(x_y_w_h, NULL, 0, 0);
+	fill_print_array(x_y_w_h, x_y_w_h, M_TI, M_TI * (MAP_SIZE + 2));
+	print_rect(data->minimap, x_y_w_h, C_WHITE);
+	fill_print_array(x_y_w_h, NULL, M_TI * (MAP_SIZE + 1), 0);
+	print_rect(data->minimap, x_y_w_h, C_WHITE);
+	fill_print_array(x_y_w_h, NULL, M_TI, 0);
+	fill_print_array(x_y_w_h, x_y_w_h, MAP_SIZE * M_TI, M_TI);
+	print_rect(data->minimap, x_y_w_h, C_WHITE);
+	fill_print_array(x_y_w_h, NULL, M_TI, M_TI * (MAP_SIZE + 1));
+	print_rect(data->minimap, x_y_w_h, C_WHITE);
 	return (0);
 }
 
@@ -48,6 +54,7 @@ int	generate_minimap(t_data *data)
 static void	put_minimap_tile(t_data *data, char obj, int i, int j)
 {
 	int	color;
+	int	x_y_w_h[4];
 
 	color = 0;
 	if (obj == '1')
@@ -57,8 +64,11 @@ static void	put_minimap_tile(t_data *data, char obj, int i, int j)
 	else if (obj == 'D')
 		color = create_trgb(0, 30, 100, 200);
 	if (color)
-		print_rect(data->minimap, j * M_TI + M_TI,
-			i * M_TI + M_TI, M_TI, M_TI, color);
+	{
+		fill_print_array(x_y_w_h, NULL, j * M_TI + M_TI, i * M_TI + M_TI);
+		fill_print_array(x_y_w_h, x_y_w_h, M_TI, M_TI);
+		print_rect(data->minimap, x_y_w_h, color);
+	}
 }
 
 static void	parse_minimap(t_data *data)
@@ -89,8 +99,11 @@ void	update_minimap(t_data *data)
 	float	x;
 	float	y;
 	int		i;
+	int		x_y_w_h[4];
 
-	print_rect(data->minimap, M_TI, M_TI, MAP_SIZE * M_TI, MAP_SIZE * M_TI, 0);
+	fill_print_array(x_y_w_h, NULL, M_TI, M_TI);
+	fill_print_array(x_y_w_h, x_y_w_h, MAP_SIZE * M_TI, MAP_SIZE * M_TI);
+	print_rect(data->minimap, x_y_w_h, 0);
 	parse_minimap(data);
 	x = (MAP_SIZE + 2) * M_TI / 2;
 	y = x;
@@ -101,6 +114,8 @@ void	update_minimap(t_data *data)
 		y += data->player.dir_y;
 		mlx_pixel_put_img(data->minimap, (int) rint(x), (int) rint(y), C_WHITE);
 	}
-	print_rect(data->minimap, (M_TI * (MAP_SIZE + 1)) / 2,
-		(M_TI * (MAP_SIZE + 1)) / 2, M_TI, M_TI, create_trgb(0, 30, 200, 100));
+	fill_print_array(x_y_w_h, NULL,
+		(M_TI * (MAP_SIZE + 1)) / 2, (M_TI * (MAP_SIZE + 1)) / 2);
+	fill_print_array(x_y_w_h, x_y_w_h, M_TI, M_TI);
+	print_rect(data->minimap, x_y_w_h, create_trgb(0, 30, 200, 100));
 }

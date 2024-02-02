@@ -6,7 +6,7 @@
 /*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:26:34 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 15:39:15 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/02 13:46:21 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,36 +55,5 @@ void	mlx_img_put_img(t_img_info *src, t_img_info *dest, int x, int y)
 			}
 		}
 		j++;
-	}
-}
-
-/*
-ways to reduce arguments:
-- use an int array
-- make a new struct for this and the print_rect functions
-- make 'color' a static, call the function twice, 1: to set 'color' 2: for real.
-	'print_rect' would need two.
-- make 'color' a variable in a struct. 'data' isn't passed, so in every 'img'?
-	'print_rect' would need two again.
-- merge 'start' and 'end' into one int. with bitshifting or good old math
-	e.g. '11112222' x = 1111 (int/10000), y = 2222 (int%10000)
-	this effectively puts a max of 9999 on the coordinates (enough for 8k res)
-*/
-void	print_line(t_img_info *img, int x, int start, int end, int color)
-{
-	while (start < end)
-	{
-		mlx_pixel_put_img(img, x, start, color);
-		start++;
-	}
-}
-
-// same here but worse
-void	print_rect(t_img_info *img, int x, int y, int width, int height, int color)
-{
-	while (width--)
-	{
-		print_line(img, x, y, y + height, color);
-		x++;
 	}
 }
