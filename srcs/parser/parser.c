@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bvercaem <bvercaem@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:50:00 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 16:02:06 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:11:44 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-/*
-Line example:
-F 220,     100, 1    0
-tab = F/220,/100,/1/0
-split = F 220/       100/ 1     0
-
-F 220,100, 1 02
-tab = F/220,100,/1/02
-
-*/
 
 void	init_value(t_data *data)
 {

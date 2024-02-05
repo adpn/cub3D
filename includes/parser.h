@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <bvercaem@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:52:28 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 16:53:01 by adupin           ###   ########.fr       */
+/*   Updated: 2024/02/05 14:13:44 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PARSER_H
 
 # include "cub3d.h"
-# include "utils.h"
 
 char	**ft_split_charset(char const *s, char *charset);
 char	*cat_all_in_one(char **list_elements);

@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <bvercaem@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:22:52 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/08 16:55:42 by adupin           ###   ########.fr       */
+/*   Updated: 2024/02/05 14:12:34 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static int	ft_count(char *str, char c)
+{
+	int	i;
+	int	count;
+
+	if (!str)
+		return (0);
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			count += 1;
+		i++;
+	}
+	return (count);
+}
 
 // Return 1 if str contains only char from charset, 0 otherwise
 int	only_char(char *str, char *charset)
@@ -45,7 +63,7 @@ int	assign_color(int *color, char **tab)
 	char	**comma_split;
 
 	if (color[0] != -1 || color[1] != -1 || color[2] != -1)
-		return (ft_error("Color already assigned")); 
+		return (ft_error("Color already assigned"));
 	clean_line = cat_all_in_one(tab);
 	if (!clean_line)
 		return (ft_error("Malloc failed"));

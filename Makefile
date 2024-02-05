@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: bvercaem <bvercaem@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 11:21:24 by adupin            #+#    #+#              #
-#    Updated: 2024/02/02 13:46:44 by bvercaem         ###   ########.fr        #
+#    Updated: 2024/02/05 14:13:27 by bvercaem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ MLXFLAGS		=	-framework OpenGL -framework AppKit
 SRCS_DIR		= 	srcs
 PARSER_DIR		=   $(SRCS_DIR)/parser
 DISPLAY_DIR		=   $(SRCS_DIR)/display
-UTILS_DIR		=	$(SRCS_DIR)/utils
 LIBFT_DIR 		= 	libft
 MLX_DIR			=	mlx
 BUILD_DIR 		= 	build
@@ -51,19 +50,16 @@ DISPLAY_FILES	=	setup.c \
 					weapon_actions.c \
 					turn_look.c \
 					minimap.c
-UTILS_FILES		=	utils.c
 
 # Defining the paths of the sources files
 SRC_MAIN		= 	$(addprefix $(SRCS_DIR)/,$(MAIN_FILE))
 SRC_PARSER  	=	$(addprefix $(PARSER_DIR)/, $(PARSER_FILES))
 SRC_DISPLAY 	=	$(addprefix $(DISPLAY_DIR)/, $(DISPLAY_FILES))
-SRC_UTILS		=	$(addprefix $(UTILS_DIR)/, $(UTILS_FILES))
 
 # Deriving objects from .c files in the build directory
 OBJS 			= 	$(patsubst $(SRCS_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC_MAIN)) \
 					$(patsubst $(PARSER_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC_PARSER)) \
 					$(patsubst $(DISPLAY_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC_DISPLAY)) \
-					$(patsubst $(UTILS_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC_UTILS)) \
 
 # Display toolbox
 RED				=	\x1b[31m
@@ -83,10 +79,6 @@ $(BUILD_DIR)/%.o: $(PARSER_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(DISPLAY_DIR)/%.c
-	@mkdir -p $(BUILD_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(BUILD_DIR)/%.o: $(UTILS_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 

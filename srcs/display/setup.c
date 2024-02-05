@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bvercaem <bvercaem@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:01 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 18:18:51 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:10:55 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,5 @@ int	setup(t_data *data)
 	if (!data->mlx_win)
 		return (destroy_textures(data), free_img(data),
 			ft_error("Mlx window init failed"));
-	//need to check if protection is good
-		// looks good to me ^^
 	return (0);
 }
