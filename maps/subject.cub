@@ -2,6 +2,7 @@ NO ./textures/cobble-wall.xpm
 SO ./textures/cobble-wall.xpm
 WE ./textures/blue-cobble-wall.xpm
 EA ./textures/blue-cobble-wall.xpm
+D ./textures/metal_door.xpm
 
 F 220,100,0
 C 225,30,0
