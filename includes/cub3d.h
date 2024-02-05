@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 18:08:59 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:43:23 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit
 # include <unistd.h> // read, write, close
-# include <fcntl.h> // open
-# include <string.h> // strerror
-# include <errno.h> // perror
 # include <math.h>
 # include <mlx.h>
 # include "struct.h"

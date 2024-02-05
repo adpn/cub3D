@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 15:16:57 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:41:39 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,6 @@ int	ft_error(char *str)
 	ft_putendl_fd(str, 2);
 	return (1);
 }
-
-// static void	printf_parser(t_data *data)
-// {
-// 	int	i;
-
-// 	printf("North: %s\n", data->parser.north);
-// 	printf("South: %s\n", data->parser.south);
-// 	printf("East: %s\n", data->parser.east);
-// 	printf("West: %s\n", data->parser.west);
-// 	printf("Door: %s\n", data->parser.door);
-// 	printf("Ceiling: %d %d %d\n", data->parser.ceiling_rgb[0],
-// 		data->parser.ceiling_rgb[1], data->parser.ceiling_rgb[2]);
-// 	printf("Floor: %d %d %d\n", data->parser.floor_rgb[0],
-// 		data->parser.floor_rgb[1], data->parser.floor_rgb[2]);
-// 	printf("Map:\n");
-// 	i = 0;
-// 	while (data->map[i])
-// 	{
-// 		printf("%s\n", data->map[i]);
-// 		i++;
-// 	}
-// }
 
 static void	free_parser(t_data *data)
 {
@@ -86,7 +64,6 @@ int	main(int argc, char **argv)
 		return (clear_map(&data), destroy_textures(&data), free_img(&data),
 			mlx_destroy_window(data.mlx_ptr, data.mlx_win), 1);
 	mlx_loop(data.mlx_ptr);
-	printf("Wtf mlx_loop() returned?!\n");
 	return (1);
 }
 

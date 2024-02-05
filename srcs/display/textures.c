@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:21:11 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/02/01 18:18:26 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:40:59 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ static void	do_texture(t_data *data, t_img_info *img, char *input, int *err)
 	if (!img->img)
 	{
 		*err = 1;
-		printf("Error\nCan't load the texture '%s'\n", input);
+		ft_putstr_fd("Error\nCan't load the texture '", 2);
+		ft_putstr_fd(input, 2);
+		ft_putendl_fd("'", 2);
 	}
 }
 
