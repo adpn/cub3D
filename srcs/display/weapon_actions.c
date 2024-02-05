@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   weapon_actions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:51:53 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/02/01 18:51:03 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:43:42 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "display.h"
+
+void	assign_shoot_hit(t_data *data, int x)
+{
+	if (x != WIN_WIDTH / 2)
+		return ;
+	data->ray.shoot_map_x = data->ray.map_x;
+	data->ray.shoot_map_y = data->ray.map_y;
+}
 
 static int	set_bullets_timer(int *bullets, int amount, int *timer, int ticks)
 {
@@ -21,17 +29,11 @@ static int	set_bullets_timer(int *bullets, int amount, int *timer, int ticks)
 
 static void	shoot_bullet(t_data *data, int *bullets, int *timer)
 {
-	int	x;
-
 	data->input.space = set_bullets_timer(bullets, *bullets - 1, timer, 3);
-	x = WIN_WIDTH / 2;
-	ray_init(&data->ray, &data->player, x);
-	first_step_calc(&data->ray, &data->player);
-	dda(data->map, &data->ray, &data->player);
-	if (data->map[data->ray.map_y][data->ray.map_x] == 'D')
-		data->map[data->ray.map_y][data->ray.map_x] = '0';
-	if (data->map[data->ray.map_y][data->ray.map_x] == 'T')
-		data->map[data->ray.map_y][data->ray.map_x] = '1';
+	if (data->map[data->ray.shoot_map_y][data->ray.shoot_map_x] == 'D')
+		data->map[data->ray.shoot_map_y][data->ray.shoot_map_x] = '0';
+	if (data->map[data->ray.shoot_map_y][data->ray.shoot_map_x] == 'T')
+		data->map[data->ray.shoot_map_y][data->ray.shoot_map_x] = '1';
 }
 
 void	gun_hands(t_data *data)

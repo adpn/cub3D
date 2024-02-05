@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:10:47 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 18:22:47 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 10:49:24 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_all_lines(char **map)
 	return (0);
 }
 
-static void	assign_dir(char c, t_player *player) //seems logical may need to check
+static void	assign_dir(char c, t_player *player)
 {
 	player->dir_x = 0;
 	player->dir_y = 0;
@@ -62,7 +62,6 @@ static int	check_player_position(char **map, t_player *player)
 			{
 				if (player->pos_x)
 					return (ft_error("More than one player on the map"));
-				//probably need to change the structure of the function
 				player->pos_x = j + 0.5;
 				player->pos_y = i + 0.5;
 				assign_dir(map[i][j], player);

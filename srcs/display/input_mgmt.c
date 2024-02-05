@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_mgmt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:51:32 by adupin            #+#    #+#             */
-/*   Updated: 2024/01/31 16:07:05 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 10:47:56 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,15 @@ int	keyup(int keycode, t_data *data)
 
 int	mouse_move(int x, int y, t_data *data)
 {
-	if (!data->input.mouse_locked || (x > -MOUSE_BUFFER && x < MOUSE_BUFFER))
+	if (!data->input.mouse_locked
+		|| (x > 5 - MOUSE_BUFFER && x < 5 + MOUSE_BUFFER))
 		return (0);
 	if (x > 0)
-		look_right(&data->player, x);
+		look_right(&data->player, x - 5);
 	else
-		look_left(&data->player, abs(x));
+		look_left(&data->player, abs(x) - 5);
 	(void)y;
-	mlx_mouse_move(data->mlx_win, 0, 0);
+	mlx_mouse_move(data->mlx_win, 5, 5);
 	return (0);
 }
 

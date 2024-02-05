@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:54:25 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 13:57:20 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:42:31 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	update(t_data *data)
 	while (x < WIN_WIDTH)
 	{
 		raycast_for_x(data, player, x, anim);
+		assign_shoot_hit(data, x);
 		x++;
 	}
 	gun_hands(data);

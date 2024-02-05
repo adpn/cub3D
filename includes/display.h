@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 17:04:29 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/02 15:26:20 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:42:19 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	revert_all_img(t_data *data);
 
 /* weapon_actions.c */
 void	gun_hands(t_data *data);
+void	assign_shoot_hit(t_data *data, int x);
 
 /* move.c */
 void	move_forward(t_player *player, char **map);

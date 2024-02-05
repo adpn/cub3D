@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvercaem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:05:16 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/01 18:16:39 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:38:53 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,17 @@ typedef struct s_player
 	float	plane_y;
 }				t_player;
 
-typedef struct s_ray //probably need to think about this structure
+typedef struct s_ray
 {
-	//Direction vector
 	float	dir_x;
 	float	dir_y;
 
-	//Current coordinates of the ray in the map
 	int		map_x;
 	int		map_y;
 
-	//Camera is along the plane, and from where the ray starts
 	float	camera_x;
 	float	camera_y;
 
-	//Distance to go to the next x side or next y side
 	float	del_dist_x;
 	float	del_dist_y;
 
@@ -75,7 +71,10 @@ typedef struct s_ray //probably need to think about this structure
 	int		step_x;
 	int		step_y;
 
-	int		direction; //side hit
+	int		shoot_map_x;
+	int		shoot_map_y;		
+
+	int		direction;
 }		t_ray;
 
 typedef struct s_wall
@@ -102,7 +101,7 @@ typedef struct s_input
 	int		right;
 	int		space;
 	int		mouse_coord[2];
-	int		mouse_locked; // 0 = unlocked, 1 = locked
+	int		mouse_locked;
 }				t_input;
 
 typedef struct s_data
