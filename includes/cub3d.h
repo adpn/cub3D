@@ -6,7 +6,7 @@
 /*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:40 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/05 12:43:23 by adupin           ###   ########.fr       */
+/*   Updated: 2024/02/05 13:06:19 by adupin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <mlx.h>
 # include "struct.h"
 
-# define WIN_WIDTH 640
-# define WIN_HEIGHT 480
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 // MAP_SIZE should always be odd (so the player can be centered)
 # define MAP_SIZE 15
