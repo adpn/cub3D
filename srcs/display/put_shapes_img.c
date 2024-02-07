@@ -6,7 +6,7 @@
 /*   By: bvercaem <bvercaem@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 13:46:07 by bvercaem          #+#    #+#             */
-/*   Updated: 2024/02/05 14:10:45 by bvercaem         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:36:32 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ int	*fill_print_array(int *a, int *b, int arg1, int arg2)
 	return (a);
 }
 
-/*
-ways to reduce arguments:
-- use an int array
-- make a new struct for this and the print_rect functions
-- make 'color' a static, call the function twice, 1: to set 'color' 2: for real.
-	'print_rect' would need two.
-- make 'color' a variable in a struct. 'data' isn't passed, so in every 'img'?
-	'print_rect' would need two again.
-- merge 'start' and 'end' into one int. with bitshifting or good old math
-	e.g. '11112222' x = 1111 (int/10000), y = 2222 (int%10000)
-	this effectively puts a max of 9999 on the coordinates (enough for 8k res)
-... i used an array hihi
-*/
 void	print_line(t_img_info *img, int *x_y, int y_end, int color)
 {
 	int	start;

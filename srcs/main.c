@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adupin <adupin@student.s19.be>             +#+  +:+       +#+        */
+/*   By: bvercaem <bvercaem@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:30:05 by adupin            #+#    #+#             */
-/*   Updated: 2024/02/05 12:41:39 by adupin           ###   ########.fr       */
+/*   Updated: 2024/02/05 14:34:05 by bvercaem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	main(int argc, char **argv)
 }
 
 /*	MEMORY:
-(doesn't include single-function-use (e.g. 'clean_line' in 'assign_color'))
-
 [thing]			[location]			[allocation(main)]	[how to free]
 
 parser strs		data->parser.*		parser()			free_parser()
@@ -81,5 +79,4 @@ screen			data->screen		display()			free()
 screen_img		data->screen->img	display()			mlx_destroy_image()
 minimap			data->minimap		display()			clear_minimap()
 minimap_img		data->minimap->img	display()			clear_minimap()
-
-i think it's all good maybe hypothetically! */
+*/
